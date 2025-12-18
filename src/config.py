@@ -57,3 +57,64 @@ LOW_SES_COMUNAS = [
     "El Bosque"
 ]
 
+
+# Listas de universidades por grupo socioeconómico
+# HIGH_SES: universidades tradicionales y privadas de élite
+HIGH_SES_UNIVERSIDADES = [
+    "Pontificia Universidad Católica de Chile",
+    "Universidad de Chile",
+    "Universidad Adolfo Ibáñez",
+    "Universidad de los Andes",
+    "Universidad del Desarrollo"
+]
+
+# LOW_SES: universidades estatales regionales y privadas accesibles
+LOW_SES_UNIVERSIDADES = [
+    "Universidad de Concepción",
+    "Universidad de Valparaíso",
+    "Universidad de La Frontera",
+    "Universidad Central de Chile",
+    "Universidad Alberto Hurtado"
+]
+
+
+# Listas de tipos de colegio por grupo socioeconómico
+# HIGH_SES: colegios privados pagados
+HIGH_SES_TIPOS_COLEGIO = [
+    "Particular Pagado",
+    "Particular Subvencionado"
+]
+
+# LOW_SES: colegios municipales y subvencionados
+LOW_SES_TIPOS_COLEGIO = [
+    "Municipal",
+    "Particular Subvencionado",
+    "Corporación de Administración Delegada"
+]
+
+
+# Listas compartidas (no diferenciadas por SES)
+# Estos atributos pueden ser los mismos para ambos grupos o asignarse aleatoriamente
+ORIENTACIONES_SOCIALES = [
+    "Trabajo con familias en situación de vulnerabilidad",
+    "Intervención comunitaria",
+    "Salud mental y adicciones",
+    "Infancia y adolescencia",
+    "Adultos mayores",
+    "Violencia intrafamiliar"
+]
+
+NIVELES_CONFLICTOS = [
+    "Alto",
+    "Medio",
+    "Bajo"
+]
+
+ESPECIALIZACIONES = [
+    "Intervención familiar",
+    "Políticas sociales",
+    "Desarrollo comunitario",
+    "Salud pública",
+    "Educación social"
+]
+

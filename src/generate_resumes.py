@@ -37,6 +37,7 @@ def sample_candidate_attributes(n: int) -> List[CandidateAttributes]:
     Returns:
         Lista de CandidateAttributes con valores razonables para el contexto chileno
     """
+    #TODO: agregar más proxys (comunas, apellidos, género, etc)
     universidades = [
         "Universidad de Chile",
         "Pontificia Universidad Católica de Chile",
@@ -109,22 +110,22 @@ def build_resume_prompt(attrs: CandidateAttributes) -> str:
     """
     prompt = f"""Genera un CV completo en texto plano para un/a Trabajador/a Social en Chile.
 
-INSTRUCCIONES IMPORTANTES:
-- NO incluyas nombre, RUT, dirección, comuna, email ni teléfono
-- El CV debe estar en español
-- Debe ser realista y coherente para el contexto laboral chileno
-- Incluye secciones típicas: perfil profesional, experiencia laboral, educación, habilidades
+        INSTRUCCIONES IMPORTANTES:
+        - NO incluyas nombre, RUT, dirección, comuna, email ni teléfono
+        - El CV debe estar en español
+        - Debe ser realista y coherente para el contexto laboral chileno
+        - Incluye secciones típicas: perfil profesional, experiencia laboral, educación, habilidades
 
-ATRIBUTOS DEL CANDIDATO:
-- Edad: {attrs.edad} años
-- Años de experiencia: {attrs.anos_experiencia} años
-- Universidad: {attrs.universidad}
-- Tipo de colegio: {attrs.tipo_colegio}
-- Orientación social: {attrs.orientacion_social}
-- Nivel de manejo de conflictos: {attrs.nivel_manejo_conflictos}
-- Especialización: {attrs.especializacion}
+        ATRIBUTOS DEL CANDIDATO:
+        - Edad: {attrs.edad} años
+        - Años de experiencia: {attrs.anos_experiencia} años
+        - Universidad: {attrs.universidad}
+        - Tipo de colegio: {attrs.tipo_colegio}
+        - Orientación social: {attrs.orientacion_social}
+        - Nivel de manejo de conflictos: {attrs.nivel_manejo_conflictos}
+        - Especialización: {attrs.especializacion}
 
-Genera un CV completo y detallado que refleje estos atributos, pero SIN incluir ningún dato personal identificable."""
+        Genera un CV completo y detallado que refleje estos atributos, pero SIN incluir ningún dato personal identificable."""
     
     return prompt
 
@@ -142,8 +143,7 @@ def call_llm(prompt: str) -> str:
     Returns:
         Texto del CV generado
     """
-    # STUB: Por ahora devuelve un CV dummy realista
-    # TODO: Implementar llamada real a LLM (OpenAI/Anthropic)
+    # STUB: Por ahora devuelve un CV dummy realistico
     raise NotImplementedError(
         "Esta función debe ser implementada para conectar con un LLM. "
         "Por ahora, usa generate_resumes con el modo de simulación."
@@ -158,54 +158,54 @@ def _generate_dummy_resume(attrs: CandidateAttributes) -> str:
         attrs: Atributos del candidato
         
     Returns:
-        Texto del CV dummy
+        Texto del CV dummy.. DUMMY bro, not LLM.
     """
     cv_text = f"""PERFIL PROFESIONAL
-Trabajador/a Social con {attrs.anos_experiencia} años de experiencia en {attrs.orientacion_social.lower()}. 
-Especialización en {attrs.especializacion.lower()}. Nivel de manejo de conflictos: {attrs.nivel_manejo_conflictos.lower()}.
+        Trabajador/a Social con {attrs.anos_experiencia} años de experiencia en {attrs.orientacion_social.lower()}. 
+        Especialización en {attrs.especializacion.lower()}. Nivel de manejo de conflictos: {attrs.nivel_manejo_conflictos.lower()}.
 
-EDUCACIÓN
-- Licenciatura en Trabajo Social, {attrs.universidad}
-- Educación secundaria: {attrs.tipo_colegio}
+        EDUCACIÓN
+        - Licenciatura en Trabajo Social, {attrs.universidad}
+        - Educación secundaria: {attrs.tipo_colegio}
 
-EXPERIENCIA LABORAL
-"""
+        EXPERIENCIA LABORAL
+        """
     
     # Generar experiencia laboral basada en años de experiencia
     if attrs.anos_experiencia >= 10:
         cv_text += """- Trabajador/a Social Senior, Centro de Salud Familiar (CESFAM) - 5 años
-  Responsable de intervención familiar y coordinación de programas comunitarios.
-  
-- Trabajador/a Social, Municipalidad - 4 años
-  Gestión de casos de vulnerabilidad social y coordinación con redes de apoyo.
-  
-- Trabajador/a Social, ONG de desarrollo social - 1 año
-  Implementación de programas de intervención comunitaria.
-"""
+          Responsable de intervención familiar y coordinación de programas comunitarios.
+
+        - Trabajador/a Social, Municipalidad - 4 años
+          Gestión de casos de vulnerabilidad social y coordinación con redes de apoyo.
+
+        - Trabajador/a Social, ONG de desarrollo social - 1 año
+          Implementación de programas de intervención comunitaria.
+        """
     elif attrs.anos_experiencia >= 5:
         cv_text += """- Trabajador/a Social, Centro de Salud Familiar (CESFAM) - 3 años
-  Intervención familiar y seguimiento de casos de vulnerabilidad.
-  
-- Trabajador/a Social, Municipalidad - 2 años
-  Gestión de casos y coordinación con servicios sociales.
-"""
+          Intervención familiar y seguimiento de casos de vulnerabilidad.
+
+        - Trabajador/a Social, Municipalidad - 2 años
+          Gestión de casos y coordinación con servicios sociales.
+        """
     else:
         cv_text += f"""- Trabajador/a Social, Centro de Salud Familiar (CESFAM) - {attrs.anos_experiencia} años
-  Intervención familiar y seguimiento de casos de vulnerabilidad social.
-"""
+          Intervención familiar y seguimiento de casos de vulnerabilidad social.
+        """
     
     cv_text += f"""
-HABILIDADES
-- Intervención en {attrs.orientacion_social.lower()}
-- Manejo de conflictos: nivel {attrs.nivel_manejo_conflictos.lower()}
-- Elaboración de informes sociales
-- Coordinación interinstitucional
-- Trabajo en equipo multidisciplinario
+        HABILIDADES
+        - Intervención en {attrs.orientacion_social.lower()}
+        - Manejo de conflictos: nivel {attrs.nivel_manejo_conflictos.lower()}
+        - Elaboración de informes sociales
+        - Coordinación interinstitucional
+        - Trabajo en equipo multidisciplinario
 
-CERTIFICACIONES
-- Registro en Colegio de Trabajadores Sociales de Chile
-- Certificación en intervención familiar
-"""
+        CERTIFICACIONES
+        - Registro en Colegio de Trabajadores Sociales de Chile
+        - Certificación en intervención familiar
+        """
     
     return cv_text
 
