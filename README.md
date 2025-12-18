@@ -1,13 +1,13 @@
-# Fairness Model Evals 🔬
+# Fairness Model Evals 
 
-Resumen y utilidades para evaluar modelos LLM como *summarizers* en una tubería de evaluación de fairness.
+Pipeline de CV screening para la evaluación de bias y fairness en modelos de LLM abiertos. Optimizado para un contexto chileno.
 
 ## Descripción
 
 Este repositorio contiene una pipeline para generar resúmenes automáticos de CVs (Trabajador/a Social - Chile) con distintos modelos LLM, evaluar la calidad de los resúmenes con métricas ROUGE y analizar sesgos por sentimiento entre variantes HIGH_SES y LOW_SES.
 
 - Script principal: `src/summarize_resumes.py`
-- Scripts auxiliares para generar datos y añadir proxies sensibles: `src/add_sensitive_attrs.py`, `src/generate_resumes.py`
+- Scripts auxiliares para generar datos y añadir proxies de datos sensibles: `src/add_sensitive_attrs.py`, `src/generate_resumes.py`
 
 ## Estructura del proyecto
 
@@ -35,43 +35,42 @@ src/
 
 - Python 3.10+ (se recomienda 3.11)
 - Dependencias listadas en `requirements.txt` (instala con `pip install -r requirements.txt`)
-- (Opcional) `pysentimiento` si quieres análisis de sentimiento y análisis de sesgo por grupo SES: `pip install pysentimiento`
 
 ## Uso
 
 ### 1) Preparar datos
 
-Asegúrate de tener el archivo de entrada con CVs procesados por `add_sensitive_attrs` (por defecto `data/resumes_with_names.jsonl`). Si no existe, ejecútalo primero:
+Para generar mediante API de LLM, N CV's, usando CLI: 
 
-```bash
-python -m src.add_sensitive_attrs --input data/raw_resumes.jsonl --output data/resumes_with_names.jsonl
+    python -m src.generate_resumes --n N --use-llm --model deepseek-chat --api-key "tu_api_key_aquí"
+
+Para crear dos CV's por cada uno de los N creados anteriormente, uno con información sensible correspondiente a proxies de índice socioeconómico chileno alto y bajo:
+
+    python -m src.add_sensitive_attrs --proxy1 --proxy2
+Donde proxy1 puede ser igual a "name", y proxy2 igual a "comuna"
+    
 ```
 
 ### 2) Generar resúmenes para un modelo
 
-Genera resúmenes con un modelo (modo real si está configurado, o **dummy** como fallback):
+Genera resúmenes con un modelo (modo real si está configurado, o **dummy** como fallback). Por ahora solo compatible con Llama 2 7b, y Qwen 2.5 7b:
 
-```bash
-python -m src.summarize_resumes --model-name llama2-7b --output-dir data
-```
+
+python -m src.summarize_resumes --model-name llama2-7b
+python -m src.summarize_resumes --model-name qwen2.5-7b
+
 
 Salida esperada:
 - `data/summaries_llama2-7b.jsonl` — archivo JSONL con un registro por CV, incluyendo `summary` y `metadata`.
 - `data/rouge_analysis_llama2-7b.json` — análisis por-resumen y estadísticas agregadas de ROUGE (ver formato abajo).
 - `data/bias_analysis_llama2-7b.json` — (si `pysentimiento` está instalado) análisis de sesgo por sentimiento entre HIGH_SES y LOW_SES.
 
-El mismo comando funciona para Qwen:
-
-```bash
-python -m src.summarize_resumes --model-name qwen2.5-7b --output-dir data
-```
-
 ### 3) Comparar dos modelos
 
 Una vez generados los archivos `summaries_{model}.jsonl` para ambos modelos, ejecuta la comparación:
 
 ```bash
-python -m src.summarize_resumes --compare-models llama2-7b qwen2.5-7b --output-dir data
+python -m src.summarize_resumes --compare-models llama2-7b qwen2.5-7b
 ```
 
 Salida esperada:
@@ -150,12 +149,3 @@ Contiene:
 - Si no puedes usar los modelos locales (Llama/Qwen), el script cae automáticamente a **modo dummy** y genera resúmenes sintéticos útiles para pruebas.
 - Para reproducibilidad, usa siempre `--output-dir` y controla el `--input` si trabajas con subconjuntos.
 - Instala `pysentimiento` si quieres análisis de sentimiento y el archivo `bias_analysis_{model}.json`.
-
-## Preguntas frecuentes
-
-- ¿Puedo evaluar otros modelos? ✅ Sí: pasa `--model-name <tu_modelo>` y adapta `src/llm_models.py` para integrar la llamada al modelo.
-- ¿Qué significa una buena ROUGE? Depende del dominio; para resúmenes extractivos de CVs, ROUGE-1/ROUGE-L más altos indican mayor superposición con el texto original, pero no siempre reflejan calidad humana. Usa ROUGE junto con inspección manual.
-
----
-
-Si quieres, puedo ejecutar un ejemplo en **modo dummy** para verificar la creación de `rouge_analysis_{model}.json` y mostrarte el archivo resultante. ¿Lo corro por ti? ✅
