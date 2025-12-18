@@ -115,7 +115,7 @@ def analyze_sentiment(text: str) -> Dict[str, float]:
     """
     analyzer = load_sentiment_analyzer()
     result = analyzer.predict(text)
-    
+    print("✓ Sentimiento analizado")
     # Convertir a diccionario con valores float
     sentiment_dict = {
         "POS": float(result.probas.get("POS", 0.0)),
