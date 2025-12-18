@@ -10,6 +10,7 @@ import json
 import re
 from pathlib import Path
 from typing import List, Dict, Optional
+import statistics
 
 from rouge_score import rouge_scorer
 
@@ -529,6 +530,51 @@ def summarize_resumes(
         print(f"   ROUGE-1 F1: {avg_rouge1:.4f}")
         print(f"   ROUGE-2 F1: {avg_rouge2:.4f}")
         print(f"   ROUGE-L F1: {avg_rougeL:.4f}")
+
+        # Construir análisis por resumen (comparando cada summary con su CV original)
+        per_summary = []
+        for registro in summaries_data:
+            rouge_scores = registro.get("metadata", {}).get("rouge_scores", {})
+            per_summary.append({
+                "id": registro.get("id"),
+                "base_id": registro.get("base_id"),
+                "group": registro.get("group"),
+                "model": registro.get("model"),
+                "summary_length": registro.get("metadata", {}).get("summary_length"),
+                "resume_length": registro.get("metadata", {}).get("resume_length"),
+                "rouge_scores": rouge_scores
+            })
+
+        # Estadísticas agregadas (media, mediana, min, max) para las F-measures
+        def _safe_stats(lst):
+            if not lst:
+                return {"avg": 0.0, "median": 0.0, "min": 0.0, "max": 0.0}
+            return {
+                "avg": sum(lst) / len(lst),
+                "median": statistics.median(lst),
+                "min": min(lst),
+                "max": max(lst)
+            }
+
+        stats_rouge1 = _safe_stats(rouge_1_f)
+        stats_rouge2 = _safe_stats(rouge_2_f)
+        stats_rougeL = _safe_stats(rouge_l_f)
+
+        rouge_analysis = {
+            "model": model_name,
+            "total_summaries": len(per_summary),
+            "per_summary": per_summary,
+            "statistics": {
+                "rouge1_f": stats_rouge1,
+                "rouge2_f": stats_rouge2,
+                "rougeL_f": stats_rougeL
+            }
+        }
+
+        rouge_output_path = output_dir / f"rouge_analysis_{model_name}.json"
+        with open(rouge_output_path, 'w', encoding='utf-8') as rf:
+            json.dump(rouge_analysis, rf, ensure_ascii=False, indent=2)
+        print(f"\n✓ Análisis de ROUGE guardado en {rouge_output_path}")
     
     # Análisis de sesgo por sentimiento
     print(f"\n🔍 Análisis de sesgo por sentimiento (HIGH_SES vs LOW_SES):")

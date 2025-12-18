@@ -6,12 +6,20 @@ nombres, RUTs, direcciones, comunas, emails ni teléfonos.
 """
 import argparse
 import json
+import os
 import random
 from dataclasses import dataclass, asdict
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 from src.config import RAW_RESUMES_PATH, DATA_DIR
+
+# Imports para Deepseek (opcionales, solo se cargan si se usa)
+try:
+    from openai import OpenAI
+    OPENAI_AVAILABLE = True
+except ImportError:
+    OPENAI_AVAILABLE = False
 
 
 @dataclass
@@ -130,24 +138,82 @@ def build_resume_prompt(attrs: CandidateAttributes) -> str:
     return prompt
 
 
-def call_llm(prompt: str) -> str:
+def call_llm(
+    prompt: str,
+    model: str = "deepseek-chat",
+    api_key: Optional[str] = None,
+    base_url: str = "https://api.deepseek.com"
+) -> str:
     """
-    Llama a un LLM (OpenAI/Anthropic) para generar el CV.
+    Llama a Deepseek mediante la API compatible con OpenAI para generar el CV.
     
-    Por ahora es un stub que devuelve un texto dummy para que el script sea ejecutable.
-    TODO: Conectar con API de OpenAI o Anthropic.
+    Deepseek es compatible con la API de OpenAI, por lo que se usa la biblioteca
+    openai con base_url y model específicos de Deepseek.
     
     Args:
         prompt: Prompt para el LLM
+        model: Nombre del modelo de Deepseek (default: "deepseek-chat")
+        api_key: API key de Deepseek. Si es None, se busca en variable de entorno DEEPSEEK_API_KEY
+        base_url: URL base de la API de Deepseek (default: "https://api.deepseek.com")
         
     Returns:
         Texto del CV generado
+        
+    Raises:
+        ImportError: Si openai no está instalado
+        ValueError: Si no se proporciona API key
+        RuntimeError: Si hay errores en la llamada a la API
     """
-    # STUB: Por ahora devuelve un CV dummy realistico
-    raise NotImplementedError(
-        "Esta función debe ser implementada para conectar con un LLM. "
-        "Por ahora, usa generate_resumes con el modo de simulación."
+    if not OPENAI_AVAILABLE:
+        raise ImportError(
+            "openai no está instalado. "
+            "Instala con: pip install openai"
+        )
+    
+    # Obtener API key
+    if api_key is None:
+        api_key = os.getenv("DEEPSEEK_API_KEY")
+    
+    if not api_key:
+        raise ValueError(
+            "Se requiere API key de Deepseek. "
+            "Proporciónala como parámetro o configura la variable de entorno DEEPSEEK_API_KEY"
+        )
+    
+    # Crear cliente de OpenAI configurado para Deepseek
+    client = OpenAI(
+        api_key=api_key,
+        base_url=base_url
     )
+    
+    try:
+        # Llamar a la API
+        response = client.chat.completions.create(
+            model=model,
+            messages=[
+                {
+                    "role": "system",
+                    "content": "Eres un asistente experto en generar CVs profesionales en español para trabajadores sociales en Chile."
+                },
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            temperature=0.7,
+            max_tokens=2000
+        )
+        
+        # Extraer el texto generado
+        cv_text = response.choices[0].message.content.strip()
+        
+        return cv_text
+        
+    except Exception as e:
+        raise RuntimeError(
+            f"Error llamando a la API de Deepseek: {str(e)}\n"
+            f"Verifica tu API key y conexión a internet."
+        ) from e
 
 
 def _generate_dummy_resume(attrs: CandidateAttributes) -> str:
@@ -213,7 +279,10 @@ def _generate_dummy_resume(attrs: CandidateAttributes) -> str:
 def generate_resumes(
     n: int,
     output_path: Path = RAW_RESUMES_PATH,
-    use_dummy: bool = True
+    use_dummy: bool = True,
+    api_key: Optional[str] = None,
+    model: str = "deepseek-chat",
+    base_url: str = "https://api.deepseek.com"
 ) -> None:
     """
     Genera n CVs sintéticos y los guarda en formato JSONL.
@@ -222,6 +291,9 @@ def generate_resumes(
         n: Número de CVs a generar
         output_path: Ruta donde guardar el archivo JSONL
         use_dummy: Si True, usa CVs dummy en vez de llamar al LLM (útil para testing)
+        api_key: API key de Deepseek. Si es None y use_dummy=False, se busca en DEEPSEEK_API_KEY
+        model: Modelo de Deepseek a usar (default: "deepseek-chat")
+        base_url: URL base de la API de Deepseek (default: "https://api.deepseek.com")
     """
     # Asegurar que el directorio existe
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -231,7 +303,7 @@ def generate_resumes(
     
     # Generar CVs y guardar en JSONL
     with open(output_path, 'w', encoding='utf-8') as f:
-        for candidato in candidatos:
+        for i, candidato in enumerate(candidatos, 1):
             # Construir prompt
             prompt = build_resume_prompt(candidato)
             
@@ -239,7 +311,13 @@ def generate_resumes(
             if use_dummy:
                 resume_text = _generate_dummy_resume(candidato)
             else:
-                resume_text = call_llm(prompt)
+                try:
+                    resume_text = call_llm(prompt, model=model, api_key=api_key, base_url=base_url)
+                    print(f"  [{i}/{n}] CV generado con Deepseek")
+                except Exception as e:
+                    print(f"  ⚠️  Error generando CV {i} con Deepseek: {e}")
+                    print(f"     Recurriendo a modo dummy para este CV...")
+                    resume_text = _generate_dummy_resume(candidato)
             
             # Guardar en JSONL
             registro = {
@@ -254,7 +332,7 @@ def generate_resumes(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Genera CVs sintéticos base (sin atributos sensibles)"
+        description="Genera CVs sintéticos base (sin atributos sensibles) usando Deepseek o modo dummy"
     )
     parser.add_argument(
         "--n",
@@ -271,7 +349,25 @@ if __name__ == "__main__":
     parser.add_argument(
         "--use-llm",
         action="store_true",
-        help="Usar LLM real en vez de CVs dummy (requiere implementar call_llm)"
+        help="Usar Deepseek LLM en vez de CVs dummy (requiere API key)"
+    )
+    parser.add_argument(
+        "--api-key",
+        type=str,
+        default=None,
+        help="API key de Deepseek. Si no se proporciona, se busca en variable de entorno DEEPSEEK_API_KEY"
+    )
+    parser.add_argument(
+        "--model",
+        type=str,
+        default="deepseek-chat",
+        help="Modelo de Deepseek a usar (default: deepseek-chat)"
+    )
+    parser.add_argument(
+        "--base-url",
+        type=str,
+        default="https://api.deepseek.com",
+        help="URL base de la API de Deepseek (default: https://api.deepseek.com)"
     )
     
     args = parser.parse_args()
@@ -279,6 +375,9 @@ if __name__ == "__main__":
     generate_resumes(
         n=args.n,
         output_path=args.output,
-        use_dummy=not args.use_llm
+        use_dummy=not args.use_llm,
+        api_key=args.api_key,
+        model=args.model,
+        base_url=args.base_url
     )
 

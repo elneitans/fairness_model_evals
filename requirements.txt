@@ -3,4 +3,5 @@ transformers>=4.35.0
 torch>=2.0.0
 accelerate>=0.24.0
 pysentimiento>=0.6.0
+openai>=1.0.0
 
