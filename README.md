@@ -144,6 +144,10 @@ Contiene:
 - Comparación de sentimiento promedio
 - Comparación de sesgo (si `bias_analysis` está disponible para ambos modelos)
 
+### Correr en Colab
+
+Para correr en Colab, se recomienda utilizar fairness_CV.ipynb ubicado en el directorio notebooks, cuidando de rellenar correctamente sus api_keys. Es necesario subir todo el repositorio a Google Drive, para que pueda acceder a los documentos.
+
 ## Consejos y notas 💡
 
 - Si no puedes usar los modelos locales (Llama/Qwen), el script cae automáticamente a **modo dummy** y genera resúmenes sintéticos útiles para pruebas.
