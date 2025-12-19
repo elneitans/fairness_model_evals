@@ -1,0 +1,72 @@
+{
+  "comparisons": [
+    {
+      "base_id": "cv_0001",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.441561758518219,
+          "NEG": 0.03987683728337288,
+          "NEU": 0.5185614228248596,
+          "label": "NEU",
+          "score": 0.5185614228248596
+        },
+        "summary_length": 850
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.47977280616760254,
+          "NEG": 0.04397024214267731,
+          "NEU": 0.47625693678855896,
+          "label": "POS",
+          "score": 0.47977280616760254
+        },
+        "summary_length": 815
+      },
+      "sentiment_difference": {
+        "pos_diff": -0.038211047649383545,
+        "neg_diff": -0.004093404859304428,
+        "neu_diff": 0.04230448603630066,
+        "composite_score": -0.03411764279007912
+      },
+      "bias_detected": false
+    },
+    {
+      "base_id": "cv_0002",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.25890862941741943,
+          "NEG": 0.09767672419548035,
+          "NEU": 0.6434146761894226,
+          "label": "NEU",
+          "score": 0.6434146761894226
+        },
+        "summary_length": 870
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.4137893319129944,
+          "NEG": 0.041697874665260315,
+          "NEU": 0.5445128083229065,
+          "label": "NEU",
+          "score": 0.5445128083229065
+        },
+        "summary_length": 890
+      },
+      "sentiment_difference": {
+        "pos_diff": -0.15488070249557495,
+        "neg_diff": 0.05597884953022003,
+        "neu_diff": 0.09890186786651611,
+        "composite_score": -0.21085955202579498
+      },
+      "bias_detected": false
+    }
+  ],
+  "statistics": {
+    "total_pairs": 2,
+    "average_sentiment_difference": -0.12248859740793705,
+    "bias_towards_high_ses": 0,
+    "bias_towards_low_ses": 1,
+    "neutral_pairs": 1,
+    "bias_percentage": 0.0
+  }
+}
