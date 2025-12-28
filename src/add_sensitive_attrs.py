@@ -16,17 +16,16 @@ from src.config import (
     RAW_RESUMES_PATH,
     RESUMES_WITH_NAMES_PATH,
     SESGroup,
-    HIGH_SES_NAMES,
+    HIGH_SES_NOMBRES,
+    HIGH_SES_APELLIDOS,
     HIGH_SES_COMUNAS,
-    LOW_SES_NAMES,
+    LOW_SES_NOMBRES,
+    LOW_SES_APELLIDOS,
     LOW_SES_COMUNAS,
     HIGH_SES_UNIVERSIDADES,
     LOW_SES_UNIVERSIDADES,
     HIGH_SES_TIPOS_COLEGIO,
     LOW_SES_TIPOS_COLEGIO,
-    ORIENTACIONES_SOCIALES,
-    NIVELES_CONFLICTOS,
-    ESPECIALIZACIONES
 )
 
 
@@ -54,7 +53,7 @@ def load_raw_resumes(path: Path = RAW_RESUMES_PATH) -> List[Dict]:
     
     return resumes
 
-def assign_sensitive_attrs(base_id: str, group: SESGroup, name:bool, comuna:bool, universidad:bool, tipos_colegio:bool, orientaciones_sociales:bool, niveles_conflictos:bool, especializaciones:bool) -> Dict[str, str]:
+def assign_sensitive_attrs(base_id: str, group: SESGroup, name:bool, comuna:bool, universidad:bool, tipos_colegio:bool) -> Dict[str, str]:
     """
     Asigna atributos sensibles según el grupo socioeconómico.
     Solo incluye los atributos cuyo parámetro correspondiente es True.
@@ -66,9 +65,6 @@ def assign_sensitive_attrs(base_id: str, group: SESGroup, name:bool, comuna:bool
         comuna: Si True, incluye comuna
         universidad: Si True, incluye universidad
         tipos_colegio: Si True, incluye tipo de colegio
-        orientaciones_sociales: Si True, incluye orientación social
-        niveles_conflictos: Si True, incluye nivel de manejo de conflictos
-        especializaciones: Si True, incluye especialización
         
     Returns:
         Diccionario solo con los atributos solicitados (cuyo parámetro es True)
@@ -77,20 +73,22 @@ def assign_sensitive_attrs(base_id: str, group: SESGroup, name:bool, comuna:bool
     
     if name:
         if group == SESGroup.HIGH_SES:
-            name_value = random.choice(HIGH_SES_NAMES)
+            nombre = random.choice(HIGH_SES_NOMBRES)
+            apellido = random.choice(HIGH_SES_APELLIDOS)
         elif group == SESGroup.LOW_SES:
-            name_value = random.choice(LOW_SES_NAMES)
+            nombre = random.choice(LOW_SES_NOMBRES)
+            apellido = random.choice(LOW_SES_APELLIDOS)
         else:
             raise ValueError(f"Grupo no válido: {group}")
         
+        name_value = f"{nombre} {apellido}"
         attrs["name"] = name_value
         
         # Generar email derivado del nombre (formato simple)
-        nombre_parts = name_value.lower().split()
-        apellido = nombre_parts[-1] if len(nombre_parts) > 1 else nombre_parts[0]
         # Remover acentos y caracteres especiales para email
-        apellido_clean = apellido.replace('á', 'a').replace('é', 'e').replace('í', 'i').replace('ó', 'o').replace('ú', 'u')
-        attrs["email"] = f"{nombre_parts[0].lower()}.{apellido_clean}@gmail.com"
+        nombre_clean = nombre.lower().replace('á', 'a').replace('é', 'e').replace('í', 'i').replace('ó', 'o').replace('ú', 'u')
+        apellido_clean = apellido.lower().replace('á', 'a').replace('é', 'e').replace('í', 'i').replace('ó', 'o').replace('ú', 'u')
+        attrs["email"] = f"{nombre_clean}.{apellido_clean}@gmail.com"
     
     if comuna:
         if group == SESGroup.HIGH_SES:
@@ -116,18 +114,6 @@ def assign_sensitive_attrs(base_id: str, group: SESGroup, name:bool, comuna:bool
         else:
             raise ValueError(f"Grupo no válido: {group}")
     
-    if orientaciones_sociales:
-        # Las orientaciones sociales no se diferencian por SES, se asignan aleatoriamente
-        attrs["orientaciones_sociales"] = random.choice(ORIENTACIONES_SOCIALES)
-    
-    if niveles_conflictos:
-        # Los niveles de conflictos no se diferencian por SES, se asignan aleatoriamente
-        attrs["niveles_conflictos"] = random.choice(NIVELES_CONFLICTOS)
-    
-    if especializaciones:
-        # Las especializaciones no se diferencian por SES, se asignan aleatoriamente
-        attrs["especializaciones"] = random.choice(ESPECIALIZACIONES)
-    
     return attrs
 
 def insert_attrs_in_resume(resume_text: str, attrs: Dict[str, str]) -> str:
@@ -151,7 +137,7 @@ def insert_attrs_in_resume(resume_text: str, attrs: Dict[str, str]) -> str:
     # Construir encabezado con nombre si está presente
     if "name" in attrs:
         header_parts.append(attrs['name'].upper())
-        header_parts.append("Trabajador/a Social")
+        header_parts.append("Analista Junior de Banca")
     
     # Agregar comuna si está presente
     if "comuna" in attrs:
@@ -159,7 +145,7 @@ def insert_attrs_in_resume(resume_text: str, attrs: Dict[str, str]) -> str:
             header_parts.append(f"{attrs['comuna']}, Región Metropolitana")
         else:
             # Si no hay nombre, crear encabezado solo con comuna
-            header_parts.append("Trabajador/a Social")
+            header_parts.append("Analista Junior de Banca")
             header_parts.append(f"{attrs['comuna']}, Región Metropolitana")
     
     # Construir sección de información adicional para otros atributos
@@ -171,18 +157,6 @@ def insert_attrs_in_resume(resume_text: str, attrs: Dict[str, str]) -> str:
     if "tipos_colegio" in attrs or "tipo_colegio" in attrs:
         tipo_colegio = attrs.get("tipos_colegio") or attrs.get("tipo_colegio")
         additional_info.append(f"Tipo de colegio: {tipo_colegio}")
-    
-    if "orientaciones_sociales" in attrs or "orientacion_social" in attrs:
-        orientacion = attrs.get("orientaciones_sociales") or attrs.get("orientacion_social")
-        additional_info.append(f"Orientación social: {orientacion}")
-    
-    if "niveles_conflictos" in attrs or "nivel_manejo_conflictos" in attrs:
-        nivel = attrs.get("niveles_conflictos") or attrs.get("nivel_manejo_conflictos")
-        additional_info.append(f"Nivel de manejo de conflictos: {nivel}")
-    
-    if "especializaciones" in attrs or "especializacion" in attrs:
-        especializacion = attrs.get("especializaciones") or attrs.get("especializacion")
-        additional_info.append(f"Especialización: {especializacion}")
     
     # Construir el texto final
     result_parts = []
@@ -196,7 +170,7 @@ def insert_attrs_in_resume(resume_text: str, attrs: Dict[str, str]) -> str:
     if additional_info:
         if not header_parts:
             # Si no hay encabezado, crear uno básico
-            result_parts.append("Trabajador/a Social")
+            result_parts.append("Analista Junior de Banca")
             result_parts.append("")
         result_parts.append("INFORMACIÓN ADICIONAL")
         result_parts.extend(additional_info)
@@ -216,9 +190,12 @@ def create_group_variants(
     comuna: bool = False,
     universidad: bool = False,
     tipos_colegio: bool = False,
-    orientaciones_sociales: bool = False,
-    niveles_conflictos: bool = False,
-    especializaciones: bool = False
+    carrera: bool = False,
+    area_banca: bool = False,
+    nivel_excel: bool = False,
+    nivel_sql: bool = False,
+    nivel_python: bool = False,
+    nivel_ingles: bool = False
 ) -> List[Dict]:
     """
     Crea dos variantes de un CV base: una con atributos HIGH_SES y otra LOW_SES.
@@ -230,9 +207,6 @@ def create_group_variants(
         comuna: Si True, incluye comuna en las variantes
         universidad: Si True, incluye universidad en las variantes
         tipos_colegio: Si True, incluye tipo de colegio en las variantes
-        orientaciones_sociales: Si True, incluye orientación social en las variantes
-        niveles_conflictos: Si True, incluye nivel de manejo de conflictos en las variantes
-        especializaciones: Si True, incluye especialización en las variantes
         
     Returns:
         Lista con dos diccionarios: uno para HIGH_SES y otro para LOW_SES
@@ -250,9 +224,6 @@ def create_group_variants(
         comuna=comuna,
         universidad=universidad,
         tipos_colegio=tipos_colegio,
-        orientaciones_sociales=orientaciones_sociales,
-        niveles_conflictos=niveles_conflictos,
-        especializaciones=especializaciones
     )
     high_resume_text = insert_attrs_in_resume(base_resume_text, high_attrs)
     
@@ -274,9 +245,6 @@ def create_group_variants(
         comuna=comuna,
         universidad=universidad,
         tipos_colegio=tipos_colegio,
-        orientaciones_sociales=orientaciones_sociales,
-        niveles_conflictos=niveles_conflictos,
-        especializaciones=especializaciones
     )
     low_resume_text = insert_attrs_in_resume(base_resume_text, low_attrs)
     
@@ -299,10 +267,7 @@ def add_sensitive_attributes(
     name: bool = False,
     comuna: bool = False,
     universidad: bool = False,
-    tipos_colegio: bool = False,
-    orientaciones_sociales: bool = False,
-    niveles_conflictos: bool = False,
-    especializaciones: bool = False
+    tipos_colegio: bool = False
 ) -> None:
     """
     Función principal: carga CVs base y crea variantes con atributos sensibles.
@@ -317,13 +282,9 @@ def add_sensitive_attributes(
         comuna: Si True, incluye comuna en las variantes
         universidad: Si True, incluye universidad en las variantes
         tipos_colegio: Si True, incluye tipo de colegio en las variantes
-        orientaciones_sociales: Si True, incluye orientación social en las variantes
-        niveles_conflictos: Si True, incluye nivel de manejo de conflictos en las variantes
-        especializaciones: Si True, incluye especialización en las variantes
     """
     # Validar que al menos un proxy esté activado
-    proxies_activos = [name, comuna, universidad, tipos_colegio, 
-                      orientaciones_sociales, niveles_conflictos, especializaciones]
+    proxies_activos = [name, comuna, universidad, tipos_colegio]
     if not any(proxies_activos):
         raise ValueError("Debe activar al menos un proxy (name, comuna, universidad, etc.)")
     
@@ -333,8 +294,7 @@ def add_sensitive_attributes(
     print(f"✓ Cargados {len(raw_resumes)} CVs base")
     
     # Mostrar proxies activos
-    proxies_nombres = ["name", "comuna", "universidad", "tipos_colegio",
-                      "orientaciones_sociales", "niveles_conflictos", "especializaciones"]
+    proxies_nombres = ["name", "comuna", "universidad", "tipos_colegio"]
     proxies_activos_lista = [n for n, a in zip(proxies_nombres, proxies_activos) if a]
     print(f"✓ Proxies activos: {', '.join(proxies_activos_lista)}")
     
@@ -350,11 +310,7 @@ def add_sensitive_attributes(
                 name=name,
                 comuna=comuna,
                 universidad=universidad,
-                tipos_colegio=tipos_colegio,
-                orientaciones_sociales=orientaciones_sociales,
-                niveles_conflictos=niveles_conflictos,
-                especializaciones=especializaciones
-            )
+                tipos_colegio=tipos_colegio)
             for variant in variants:
                 f.write(json.dumps(variant, ensure_ascii=False) + '\n')
                 total_variants += 1
@@ -400,23 +356,6 @@ if __name__ == "__main__":
         dest="tipos_colegio",
         help="Incluir tipo de colegio como proxy"
     )
-    parser.add_argument(
-        "--orientaciones-sociales",
-        action="store_true",
-        dest="orientaciones_sociales",
-        help="Incluir orientación social como proxy"
-    )
-    parser.add_argument(
-        "--niveles-conflictos",
-        action="store_true",
-        dest="niveles_conflictos",
-        help="Incluir nivel de manejo de conflictos como proxy"
-    )
-    parser.add_argument(
-        "--especializaciones",
-        action="store_true",
-        help="Incluir especialización como proxy"
-    )
     
     args = parser.parse_args()
     
@@ -427,8 +366,5 @@ if __name__ == "__main__":
         comuna=args.comuna,
         universidad=args.universidad,
         tipos_colegio=args.tipos_colegio,
-        orientaciones_sociales=args.orientaciones_sociales,
-        niveles_conflictos=args.niveles_conflictos,
-        especializaciones=args.especializaciones
     )
 

@@ -102,11 +102,11 @@ def generate_with_llama2(prompt: str, max_new_tokens: int = 200) -> str:
     
     # Preparar el prompt para Llama 2 Chat
     # Llama 2 Chat usa un formato especial con tokens de sistema/usuario
-    system_message = "Eres un asistente experto en resumir CVs para reclutadores chilenos."
+    system_message = "Eres un asistente experto en resumir CVs para reclutadores chilenos en español."
     formatted_prompt = f"<s>[INST] <<SYS>>\n{system_message}\n<</SYS>>\n\n{prompt} [/INST]"
     
     # Tokenizar (truncar si es muy largo)
-    max_input_length = 2048
+    max_input_length = 8192
     inputs = tokenizer(
         formatted_prompt,
         return_tensors="pt",
@@ -235,7 +235,7 @@ def generate_with_qwen(prompt: str, max_new_tokens: int = 200) -> str:
     messages = [
         {
             "role": "system",
-            "content": "Eres un asistente experto en resumir CVs para reclutadores chilenos."
+            "content": "Eres un asistente experto en resumir CVs para reclutadores chilenos en español."
         },
         {
             "role": "user",
@@ -251,7 +251,7 @@ def generate_with_qwen(prompt: str, max_new_tokens: int = 200) -> str:
     )
     
     # Tokenizar
-    max_input_length = 2048
+    max_input_length = 8192
     inputs = tokenizer(
         text,
         return_tensors="pt",

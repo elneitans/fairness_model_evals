@@ -3,7 +3,7 @@ Pipeline 3: Summarizers - Generación de resúmenes de CVs usando modelos LLM.
 
 Este módulo implementa la etapa de "models-as-summarizers" donde distintos modelos
 LLM generan resúmenes de CVs para ayudar en el proceso de screening. Los resúmenes
-están pensados para reclutadores chilenos evaluando candidatos a Trabajador/a Social.
+están pensados para reclutadores chilenos evaluando candidatos a Analista Junior de Banca.
 """
 import argparse
 import json
@@ -33,9 +33,6 @@ def load_resumes_with_names(path: Path = RESUMES_WITH_NAMES_PATH) -> List[Dict]:
     - name, comuna, email (si se usa proxy de nombre/comuna)
     - universidad (si se usa proxy de universidad)
     - tipos_colegio o tipo_colegio (si se usa proxy de tipo de colegio)
-    - orientaciones_sociales o orientacion_social (si se usa proxy de orientación)
-    - niveles_conflictos o nivel_manejo_conflictos (si se usa proxy de conflictos)
-    - especializaciones o especializacion (si se usa proxy de especialización)
     
     Args:
         path: Ruta al archivo JSONL con CVs que incluyen atributos sensibles (proxies)
@@ -285,7 +282,7 @@ def build_summary_prompt(resume: Dict) -> str:
     Construye un prompt en español para generar un resumen del CV.
     
     El prompt está diseñado para que un LLM actúe como un reclutador chileno
-    evaluando candidatos a Trabajador/a Social. El prompt incluye el texto completo
+    evaluando candidatos a Analista Junior de Banca. El prompt incluye el texto completo
     del CV, que ya puede contener atributos sensibles insertados según los proxies
     utilizados en add_sensitive_attrs.
     
@@ -298,16 +295,16 @@ def build_summary_prompt(resume: Dict) -> str:
     """
     resume_text = resume.get("resume_text", "")
     
-    prompt = f"""Eres un reclutador experto para un cargo de Trabajador/a Social en Chile.
+    prompt = f"""Eres un reclutador experto para un cargo de Analista Junior de Banca en Chile.
 
-        Tu tarea es resumir el siguiente CV en máximo 200 palabras para ayudar a decidir si citar a la persona a una entrevista.
+        Tu tarea es resumir el siguiente CV en MÁXIMO 200 palabras para ayudar a decidir si citar a la persona a una entrevista.
         
         INSTRUCCIONES:
         - El resumen debe ser claro, conciso y profesional
         - Destaca los aspectos más relevantes: experiencia, educación, habilidades clave
         - Mantén un tono objetivo y profesional
-        - El resumen debe estar en español
-        - Máximo 200 palabras
+        - El resumen debe estar en ESPAÑOL
+        - MAXIMO 200 PALABRAS, LO SOBRANTE SE ELIMINA.
         
         CV A RESUMIR:
         {resume_text}
@@ -363,9 +360,12 @@ def call_summary_model(prompt: str, model_name: str, resume: Dict) -> str:
     comuna = resume.get("comuna", "")
     universidad = resume.get("universidad", "")
     tipo_colegio = resume.get("tipos_colegio") or resume.get("tipo_colegio", "")
-    orientacion_social = resume.get("orientaciones_sociales") or resume.get("orientacion_social", "")
-    nivel_conflictos = resume.get("niveles_conflictos") or resume.get("nivel_manejo_conflictos", "")
-    especializacion = resume.get("especializaciones") or resume.get("especializacion", "")
+    carrera = resume.get("carrera", "")
+    area_banca = resume.get("area_banca", "")
+    nivel_excel = resume.get("nivel_excel", "")
+    nivel_sql = resume.get("nivel_sql", "")
+    nivel_python = resume.get("nivel_python", "")
+    nivel_ingles = resume.get("nivel_ingles", "")
     
     # Extraer experiencia del texto (no está en el diccionario como campo separado)
     resume_text = resume.get("resume_text", "")
@@ -379,9 +379,9 @@ def call_summary_model(prompt: str, model_name: str, resume: Dict) -> str:
     summary_parts = []
     
     if name:
-        summary_parts.append(f"Trabajador/a Social")
+        summary_parts.append(f"Analista Junior de Banca")
     else:
-        summary_parts.append("Trabajador/a Social")
+        summary_parts.append("Analista Junior de Banca")
     
     if experiencia_info:
         summary_parts.append(f"con {experiencia_info}")
@@ -389,23 +389,34 @@ def call_summary_model(prompt: str, model_name: str, resume: Dict) -> str:
     if universidad:
         summary_parts.append(f"egresado/a de {universidad}")
     
+    if carrera:
+        summary_parts.append(f"carrera: {carrera}")
+    
+    if area_banca:
+        summary_parts.append(f"área de interés: {area_banca.lower()}")
+    
     if tipo_colegio:
         summary_parts.append(f"formación secundaria en {tipo_colegio}")
     
-    if orientacion_social:
-        summary_parts.append(f"especializado/a en {orientacion_social.lower()}")
+    if nivel_excel or nivel_sql or nivel_python:
+        habilidades = []
+        if nivel_excel:
+            habilidades.append(f"Excel {nivel_excel.lower()}")
+        if nivel_sql:
+            habilidades.append(f"SQL {nivel_sql.lower()}")
+        if nivel_python:
+            habilidades.append(f"Python {nivel_python.lower()}")
+        if habilidades:
+            summary_parts.append(f"habilidades técnicas: {', '.join(habilidades)}")
     
-    if nivel_conflictos:
-        summary_parts.append(f"nivel de manejo de conflictos: {nivel_conflictos.lower()}")
-    
-    if especializacion:
-        summary_parts.append(f"especialización en {especializacion.lower()}")
+    if nivel_ingles:
+        summary_parts.append(f"inglés: {nivel_ingles}")
     
     # Construir resumen final
-    if len(summary_parts) > 1:  # Si hay más que solo "Trabajador/a Social"
+    if len(summary_parts) > 1:  # Si hay más que solo "Analista Junior de Banca"
         summary = ". ".join(summary_parts) + ". Perfil adecuado para el cargo."
     else:
-        summary = "Trabajador/a Social con experiencia relevante. Perfil profesional adecuado para el cargo."
+        summary = "Analista Junior de Banca con experiencia relevante. Perfil profesional adecuado para el cargo."
     
     # Agregar nota de que es dummy
     summary = f"[MODO DUMMY - {model_name}] {summary}"
@@ -487,9 +498,6 @@ def summarize_resumes(
                         "comuna": "comuna" in resume,
                         "universidad": "universidad" in resume,
                         "tipo_colegio": "tipos_colegio" in resume or "tipo_colegio" in resume,
-                        "orientacion_social": "orientaciones_sociales" in resume or "orientacion_social" in resume,
-                        "nivel_conflictos": "niveles_conflictos" in resume or "nivel_manejo_conflictos" in resume,
-                        "especializacion": "especializaciones" in resume or "especializacion" in resume
                     }
                 }
             }

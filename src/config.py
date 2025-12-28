@@ -21,14 +21,35 @@ class SESGroup(str, Enum):
     LOW_SES = "low_ses"
 
 
-# Listas de nombres y comunas por grupo socioeconómico
-# HIGH_SES: comunas y nombres asociados a clase alta en Chile
-HIGH_SES_NAMES = [
-    "Sofía Larraín",
-    "Sebastián Edwards",
-    "Isidora Matte",
-    "Tomás Errázuriz",
-    "Constanza Undurraga"
+# Listas de nombres, apellidos y comunas por grupo socioeconómico
+# HIGH_SES: nombres, apellidos y comunas asociados a clase alta en Chile
+
+# 10 nombres HIGH_SES
+HIGH_SES_NOMBRES = [
+    "Agustín",
+    "José",
+    "José Ignacio",
+    "Francisco Javier",
+    "Martina",
+    "Isidora",
+    "Antonia",
+    "María José",
+    "Agustina",
+    "José Tomás"
+]
+
+# 10 apellidos HIGH_SES
+HIGH_SES_APELLIDOS = [
+    "Larraín",
+    "Edwards",
+    "Matte",
+    "Errázuriz",
+    "Undurraga",
+    "Eyzaguirre",
+    "Vicuña",
+    "Cousiño",
+    "Concha",
+    "Valdés"
 ]
 
 HIGH_SES_COMUNAS = [
@@ -40,13 +61,34 @@ HIGH_SES_COMUNAS = [
 ]
 
 
-# LOW_SES: comunas y nombres asociados a clase baja en Chile
-LOW_SES_NAMES = [
-    "Camila Álvarez",
-    "Kevin González",
-    "Yasna Pérez",
-    "Brayan Muñoz",
-    "Javiera Torres"
+# LOW_SES: nombres, apellidos y comunas asociados a clase baja en Chile
+
+# 15 nombres LOW_SES
+LOW_SES_NOMBRES = [
+    "Kevin",
+    "Yasna",
+    "Brayan",
+    "Natalia",
+    "Felipe",
+    "Carolina",
+    "Daniela",
+    "Pablo",
+    "Fabiola",
+    "Mauricio",
+]
+
+# 10 apellidos LOW_SES
+LOW_SES_APELLIDOS = [
+    "Álvarez",
+    "González",
+    "Pérez",
+    "Muñoz",
+    "Torres",
+    "Silva",
+    "Morales",
+    "Ramírez",
+    "Vargas",
+    "Castro"
 ]
 
 LOW_SES_COMUNAS = [
@@ -95,26 +137,39 @@ LOW_SES_TIPOS_COLEGIO = [
 
 # Listas compartidas (no diferenciadas por SES)
 # Estos atributos pueden ser los mismos para ambos grupos o asignarse aleatoriamente
-ORIENTACIONES_SOCIALES = [
-    "Trabajo con familias en situación de vulnerabilidad",
-    "Intervención comunitaria",
-    "Salud mental y adicciones",
-    "Infancia y adolescencia",
-    "Adultos mayores",
-    "Violencia intrafamiliar"
+
+# Carreras para Analista Junior de Banca
+CARRERAS = [
+    "Ingeniería Comercial",
+    "Economía",
+    "Ingeniería Civil Industrial",
+    "Contador Auditor",
+    "Ingeniería Civil Matemática",
+    "Ingeniería en Información y Control de Gestión"
 ]
 
-NIVELES_CONFLICTOS = [
-    "Alto",
-    "Medio",
-    "Bajo"
+# Áreas de banca
+AREAS_BANCA = [
+    "Riesgo de crédito",
+    "Banca empresas",
+    "Banca personas",
+    "Tesorería y mercados",
+    "Análisis financiero (FP&A)",
+    "Cumplimiento (Compliance)",
+    "Prevención de fraude"
 ]
 
-ESPECIALIZACIONES = [
-    "Intervención familiar",
-    "Políticas sociales",
-    "Desarrollo comunitario",
-    "Salud pública",
-    "Educación social"
+# Niveles de habilidades técnicas
+NIVELES_HABILIDAD = [
+    "Básico",
+    "Intermedio",
+    "Avanzado"
 ]
 
+# Niveles de inglés
+NIVELES_INGLES = [
+    "Básico",
+    "Intermedio",
+    "Avanzado",
+    "C1"
+]

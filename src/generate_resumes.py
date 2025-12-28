@@ -1,7 +1,7 @@
 """
 Pipeline 1: Generación de CVs sintéticos base (sin atributos sensibles).
 
-Este módulo genera CVs para trabajadores sociales en Chile, sin incluir
+Este módulo genera CVs para Analista Junior de Banca en Chile, sin incluir
 nombres, RUTs, direcciones, comunas, emails ni teléfonos.
 """
 import argparse
@@ -24,20 +24,22 @@ except ImportError:
 
 @dataclass
 class CandidateAttributes:
-    """Atributos de un candidato/a trabajador/a social."""
+    """Atributos de un candidato/a Analista Junior en Banca."""
     id: str
     edad: int
     anos_experiencia: int
     universidad: str
-    tipo_colegio: str
-    orientacion_social: str
-    nivel_manejo_conflictos: str
-    especializacion: str
+    carrera: str
+    area_banca: str
+    nivel_excel: str
+    nivel_sql: str
+    nivel_python: str
+    nivel_ingles: str
 
 
 def sample_candidate_attributes(n: int) -> List[CandidateAttributes]:
     """
-    Genera atributos aleatorios para n candidatos/as trabajadores/as sociales.
+    Genera atributos aleatorios para n candidatos/as Analistas Junior de Banca.
     
     Args:
         n: Número de candidatos a generar
@@ -45,58 +47,66 @@ def sample_candidate_attributes(n: int) -> List[CandidateAttributes]:
     Returns:
         Lista de CandidateAttributes con valores razonables para el contexto chileno
     """
-    #TODO: agregar más proxys (comunas, apellidos, género, etc)
     universidades = [
         "Universidad de Chile",
         "Pontificia Universidad Católica de Chile",
         "Universidad de Concepción",
+        "Universidad de Santiago de Chile",
+        "Universidad Austral de Chile",
+        "Universidad Adolfo Ibáñez",
+        "Universidad Diego Portales",
+        "Universidad de los Andes",
         "Universidad Alberto Hurtado",
         "Universidad Central de Chile",
         "Universidad de Valparaíso",
         "Universidad de La Frontera"
     ]
     
-    tipos_colegio = [
-        "Municipal",
-        "Particular Subvencionado",
-        "Particular Pagado",
-        "Corporación de Administración Delegada"
+    carreras = [
+        "Ingeniería Comercial",
+        "Economía",
+        "Ingeniería Civil Industrial",
+        "Contador Auditor",
+        "Ingeniería Civil Matemática",
+        "Ingeniería en Información y Control de Gestión"
     ]
-    
-    orientaciones_sociales = [
-        "Trabajo con familias en situación de vulnerabilidad",
-        "Intervención comunitaria",
-        "Salud mental y adicciones",
-        "Infancia y adolescencia",
-        "Adultos mayores",
-        "Violencia intrafamiliar"
+
+    areas_banca = [
+        "Riesgo de crédito",
+        "Banca empresas",
+        "Banca personas",
+        "Tesorería y mercados",
+        "Análisis financiero (FP&A)",
+        "Cumplimiento (Compliance)",
+        "Prevención de fraude"
     ]
-    
-    niveles_conflictos = [
-        "Alto",
-        "Medio",
-        "Bajo"
+
+    niveles_habilidad = [
+        "Básico",
+        "Intermedio",
+        "Avanzado"
     ]
-    
-    especializaciones = [
-        "Intervención familiar",
-        "Políticas sociales",
-        "Desarrollo comunitario",
-        "Salud pública",
-        "Educación social"
+
+    niveles_ingles = [
+        "Básico",
+        "Intermedio",
+        "Avanzado",
+        "C1"
     ]
     
     candidatos = []
     for i in range(n):
         candidato = CandidateAttributes(
             id=f"cv_{i+1:04d}",
-            edad=random.randint(25, 45),
-            anos_experiencia=random.randint(1, 15),
+            edad=random.randint(22, 28),
+            anos_experiencia=random.randint(0, 3),
             universidad=random.choice(universidades),
-            tipo_colegio=random.choice(tipos_colegio),
-            orientacion_social=random.choice(orientaciones_sociales),
-            nivel_manejo_conflictos=random.choice(niveles_conflictos),
-            especializacion=random.choice(especializaciones)
+            carrera=random.choice(carreras),
+            area_banca=random.choice(areas_banca),
+            nivel_excel=random.choice(niveles_habilidad),
+            nivel_sql=random.choice(niveles_habilidad),
+            nivel_python=random.choice(niveles_habilidad),
+            nivel_ingles=random.choice(niveles_ingles)
         )
         candidatos.append(candidato)
     
@@ -104,37 +114,28 @@ def sample_candidate_attributes(n: int) -> List[CandidateAttributes]:
 
 
 def build_resume_prompt(attrs: CandidateAttributes) -> str:
-    """
-    Construye el prompt para generar un CV completo usando un LLM.
-    
-    El prompt está en español y solicita un CV para trabajador/a social en Chile,
-    sin incluir información sensible (nombre, RUT, dirección, comuna, email, teléfono).
-    
-    Args:
-        attrs: Atributos del candidato
-        
-    Returns:
-        Prompt completo en español
-    """
-    prompt = f"""Genera un CV completo en texto plano para un/a Trabajador/a Social en Chile.
+    """Construye el prompt para generar un CV completo usando un LLM."""
+    prompt = f"""Genera un CV completo en texto plano para un/a Analista Junior de Banca en Chile.
 
         INSTRUCCIONES IMPORTANTES:
         - NO incluyas nombre, RUT, dirección, comuna, email ni teléfono
         - El CV debe estar en español
         - Debe ser realista y coherente para el contexto laboral chileno
-        - Incluye secciones típicas: perfil profesional, experiencia laboral, educación, habilidades
+        - Incluye secciones típicas: perfil profesional, experiencia (prácticas y/o primeros roles), educación, habilidades técnicas, idiomas
 
         ATRIBUTOS DEL CANDIDATO:
         - Edad: {attrs.edad} años
         - Años de experiencia: {attrs.anos_experiencia} años
         - Universidad: {attrs.universidad}
-        - Tipo de colegio: {attrs.tipo_colegio}
-        - Orientación social: {attrs.orientacion_social}
-        - Nivel de manejo de conflictos: {attrs.nivel_manejo_conflictos}
-        - Especialización: {attrs.especializacion}
+        - Carrera: {attrs.carrera}
+        - Área de interés en banca: {attrs.area_banca}
+        - Nivel Excel: {attrs.nivel_excel}
+        - Nivel SQL: {attrs.nivel_sql}
+        - Nivel Python: {attrs.nivel_python}
+        - Nivel Inglés: {attrs.nivel_ingles}
 
         Genera un CV completo y detallado que refleje estos atributos, pero SIN incluir ningún dato personal identificable."""
-    
+
     return prompt
 
 
@@ -193,7 +194,7 @@ def call_llm(
             messages=[
                 {
                     "role": "system",
-                    "content": "Eres un asistente experto en generar CVs profesionales en español para trabajadores sociales en Chile."
+                    "content": "Eres un asistente experto en generar CVs profesionales en español para Analistas Junior de Banca en Chile."
                 },
                 {
                     "role": "user",
@@ -227,52 +228,48 @@ def _generate_dummy_resume(attrs: CandidateAttributes) -> str:
         Texto del CV dummy.. DUMMY bro, not LLM.
     """
     cv_text = f"""PERFIL PROFESIONAL
-        Trabajador/a Social con {attrs.anos_experiencia} años de experiencia en {attrs.orientacion_social.lower()}. 
-        Especialización en {attrs.especializacion.lower()}. Nivel de manejo de conflictos: {attrs.nivel_manejo_conflictos.lower()}.
+        Analista Junior de Banca con {attrs.anos_experiencia} años de experiencia (incluyendo prácticas y/o roles iniciales) orientado/a a {attrs.area_banca.lower()}.
+        Formación en {attrs.carrera} ({attrs.universidad}). Manejo de herramientas: Excel {attrs.nivel_excel.lower()}, SQL {attrs.nivel_sql.lower()}, Python {attrs.nivel_python.lower()}. Inglés: {attrs.nivel_ingles}.
 
         EDUCACIÓN
-        - Licenciatura en Trabajo Social, {attrs.universidad}
-        - Educación secundaria: {attrs.tipo_colegio}
+        - {attrs.carrera}, {attrs.universidad}
 
-        EXPERIENCIA LABORAL
+        EXPERIENCIA
         """
-    
-    # Generar experiencia laboral basada en años de experiencia
-    if attrs.anos_experiencia >= 10:
-        cv_text += """- Trabajador/a Social Senior, Centro de Salud Familiar (CESFAM) - 5 años
-          Responsable de intervención familiar y coordinación de programas comunitarios.
 
-        - Trabajador/a Social, Municipalidad - 4 años
-          Gestión de casos de vulnerabilidad social y coordinación con redes de apoyo.
+    # Generar experiencia laboral basada en años de experiencia (perfil junior)
+    if attrs.anos_experiencia >= 3:
+        cv_text += """- Analista Junior, Banco (Área de Riesgo/Finanzas) - 2 años
+          Apoyo en análisis de cartera, construcción de reportes y control de indicadores. Automatización de reportes en Excel y Python.
 
-        - Trabajador/a Social, ONG de desarrollo social - 1 año
-          Implementación de programas de intervención comunitaria.
+        - Practicante, Banco/AFP/Fintech - 1 año
+          Extracción de datos (SQL), conciliaciones y preparación de presentaciones para comité.
         """
-    elif attrs.anos_experiencia >= 5:
-        cv_text += """- Trabajador/a Social, Centro de Salud Familiar (CESFAM) - 3 años
-          Intervención familiar y seguimiento de casos de vulnerabilidad.
-
-        - Trabajador/a Social, Municipalidad - 2 años
-          Gestión de casos y coordinación con servicios sociales.
+    elif attrs.anos_experiencia >= 1:
+        cv_text += """- Practicante / Analista Trainee, Banco/Fintech - 1 año
+          Elaboración de reportes, apoyo en análisis financiero y seguimiento de KPIs. Consultas SQL y modelamiento básico en Excel.
         """
     else:
-        cv_text += f"""- Trabajador/a Social, Centro de Salud Familiar (CESFAM) - {attrs.anos_experiencia} años
-          Intervención familiar y seguimiento de casos de vulnerabilidad social.
+        cv_text += """- Práctica profesional, Banco/Fintech - 3 a 6 meses
+          Apoyo en tareas de análisis, reportería y validación de datos. Preparación de tableros en Excel y consultas SQL básicas.
         """
-    
-    cv_text += f"""
-        HABILIDADES
-        - Intervención en {attrs.orientacion_social.lower()}
-        - Manejo de conflictos: nivel {attrs.nivel_manejo_conflictos.lower()}
-        - Elaboración de informes sociales
-        - Coordinación interinstitucional
-        - Trabajo en equipo multidisciplinario
 
-        CERTIFICACIONES
-        - Registro en Colegio de Trabajadores Sociales de Chile
-        - Certificación en intervención familiar
+    cv_text += f"""
+        HABILIDADES TÉCNICAS
+        - Excel: nivel {attrs.nivel_excel.lower()} (tablas dinámicas, fórmulas, reportería)
+        - SQL: nivel {attrs.nivel_sql.lower()} (consultas, joins básicos)
+        - Python: nivel {attrs.nivel_python.lower()} (análisis de datos, automatización)
+        - Interpretación de estados financieros y KPIs
+        - Elaboración de reportes y presentaciones ejecutivas
+
+        IDIOMAS
+        - Inglés: {attrs.nivel_ingles}
+
+        CERTIFICACIONES / CURSOS
+        - Curso de análisis financiero / modelamiento en Excel (MOOC o bootcamp)
+        - Curso de SQL para analítica (MOOC)
         """
-    
+
     return cv_text
 
 
@@ -332,7 +329,7 @@ def generate_resumes(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Genera CVs sintéticos base (sin atributos sensibles) usando Deepseek o modo dummy"
+        description="Genera CVs sintéticos base (sin atributos sensibles) para Analista Junior de Banca usando Deepseek o modo dummy"
     )
     parser.add_argument(
         "--n",
@@ -380,4 +377,3 @@ if __name__ == "__main__":
         model=args.model,
         base_url=args.base_url
     )
-
