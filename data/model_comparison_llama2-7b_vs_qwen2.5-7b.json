@@ -1,67 +1,67 @@
 {
   "model1": "llama2-7b",
   "model2": "qwen2.5-7b",
-  "comparison_date": "1766094099.0",
+  "comparison_date": "1766964611.0",
   "rouge_comparison": {
     "llama2-7b": {
-      "rouge1_f1": 0.1921072528145203,
-      "rouge2_f1": 0.13240736180648022,
-      "rougeL_f1": 0.15125447335923006,
-      "samples": 4
+      "rouge1_f1": 0.4401522940487807,
+      "rouge2_f1": 0.3009211768701377,
+      "rougeL_f1": 0.32481260472242457,
+      "samples": 60
     },
     "qwen2.5-7b": {
-      "rouge1_f1": 0.24383889748386695,
-      "rouge2_f1": 0.1572102947650872,
-      "rougeL_f1": 0.182068001434559,
-      "samples": 4
+      "rouge1_f1": 0.39293611640123366,
+      "rouge2_f1": 0.22722910288450027,
+      "rougeL_f1": 0.27760152554598266,
+      "samples": 60
     },
     "difference": {
-      "rouge1_diff": 0.051731644669346655,
-      "rouge2_diff": 0.02480293295860697,
-      "rougeL_diff": 0.030813528075328944,
-      "winner_rouge1": "qwen2.5-7b",
-      "winner_rouge2": "qwen2.5-7b",
-      "winner_rougeL": "qwen2.5-7b"
+      "rouge1_diff": -0.04721617764754704,
+      "rouge2_diff": -0.07369207398563743,
+      "rougeL_diff": -0.047211079176441906,
+      "winner_rouge1": "llama2-7b",
+      "winner_rouge2": "llama2-7b",
+      "winner_rougeL": "llama2-7b"
     }
   },
   "sentiment_comparison": {
     "llama2-7b": {
-      "avg_positive": 0.5436056926846504,
-      "avg_negative": 0.04899657052010298,
-      "avg_neutral": 0.40739773213863373,
-      "samples": 4
+      "avg_positive": 0.45224177415172256,
+      "avg_negative": 0.04980088906983535,
+      "avg_neutral": 0.49795732845862706,
+      "samples": 60
     },
     "qwen2.5-7b": {
-      "avg_positive": 0.39850813150405884,
-      "avg_negative": 0.05580541957169771,
-      "avg_neutral": 0.5456864610314369,
-      "samples": 4
+      "avg_positive": 0.3805366098880768,
+      "avg_negative": 0.05392387124399344,
+      "avg_neutral": 0.5655395165085793,
+      "samples": 60
     },
     "difference": {
-      "pos_diff": -0.14509756118059158,
-      "neg_diff": 0.006808849051594734,
-      "neu_diff": 0.1382887288928032
+      "pos_diff": -0.07170516426364576,
+      "neg_diff": 0.004122982174158095,
+      "neu_diff": 0.0675821880499522
     }
   },
   "bias_comparison": {
     "llama2-7b": {
-      "avg_sentiment_diff": 0.0029217805713415146,
-      "bias_towards_high_ses": 1,
-      "bias_towards_low_ses": 1,
-      "bias_percentage": 50.0,
-      "total_pairs": 2
+      "avg_sentiment_diff": -0.060705024749040604,
+      "bias_towards_high_ses": 8,
+      "bias_towards_low_ses": 14,
+      "bias_percentage": 26.666666666666668,
+      "total_pairs": 30
     },
     "qwen2.5-7b": {
-      "avg_sentiment_diff": -0.12248859740793705,
-      "bias_towards_high_ses": 0,
-      "bias_towards_low_ses": 1,
-      "bias_percentage": 0.0,
-      "total_pairs": 2
+      "avg_sentiment_diff": 0.01732651616136233,
+      "bias_towards_high_ses": 7,
+      "bias_towards_low_ses": 4,
+      "bias_percentage": 23.333333333333332,
+      "total_pairs": 30
     },
     "difference": {
-      "sentiment_diff_diff": -0.12541037797927856,
-      "bias_diff": -50.0,
-      "more_biased": "qwen2.5-7b"
+      "sentiment_diff_diff": 0.07803154091040293,
+      "bias_diff": -3.3333333333333357,
+      "more_biased": "llama2-7b"
     }
   }
 }

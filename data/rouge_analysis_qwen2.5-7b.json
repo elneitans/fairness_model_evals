@@ -1,29 +1,29 @@
 {
   "model": "qwen2.5-7b",
-  "total_summaries": 4,
+  "total_summaries": 60,
   "per_summary": [
     {
       "id": "cv_0001_high",
       "base_id": "cv_0001",
       "group": "high_ses",
       "model": "qwen2.5-7b",
-      "summary_length": 850,
-      "resume_length": 5233,
+      "summary_length": 1455,
+      "resume_length": 3771,
       "rouge_scores": {
         "rouge1": {
-          "precision": 0.7969924812030075,
-          "recall": 0.13383838383838384,
-          "fmeasure": 0.2291891891891892
+          "precision": 0.76,
+          "recall": 0.328719723183391,
+          "fmeasure": 0.4589371980676329
         },
         "rouge2": {
-          "precision": 0.48484848484848486,
-          "recall": 0.08091024020227561,
-          "fmeasure": 0.13867822318526543
+          "precision": 0.42971887550200805,
+          "recall": 0.1854419410745234,
+          "fmeasure": 0.25907990314769974
         },
         "rougeL": {
-          "precision": 0.5639097744360902,
-          "recall": 0.0946969696969697,
-          "fmeasure": 0.16216216216216214
+          "precision": 0.424,
+          "recall": 0.18339100346020762,
+          "fmeasure": 0.2560386473429952
         }
       }
     },
@@ -32,23 +32,23 @@
       "base_id": "cv_0001",
       "group": "low_ses",
       "model": "qwen2.5-7b",
-      "summary_length": 815,
-      "resume_length": 5226,
+      "summary_length": 1438,
+      "resume_length": 3771,
       "rouge_scores": {
         "rouge1": {
-          "precision": 0.8320610687022901,
-          "recall": 0.13745271122320302,
-          "fmeasure": 0.2359307359307359
+          "precision": 0.728448275862069,
+          "recall": 0.29238754325259514,
+          "fmeasure": 0.4172839506172839
         },
         "rouge2": {
-          "precision": 0.5076923076923077,
-          "recall": 0.08333333333333333,
-          "fmeasure": 0.14316702819956614
+          "precision": 0.4155844155844156,
+          "recall": 0.1663778162911612,
+          "fmeasure": 0.2376237623762376
         },
         "rougeL": {
-          "precision": 0.5343511450381679,
-          "recall": 0.08827238335435057,
-          "fmeasure": 0.15151515151515152
+          "precision": 0.5344827586206896,
+          "recall": 0.21453287197231835,
+          "fmeasure": 0.30617283950617286
         }
       }
     },
@@ -57,23 +57,23 @@
       "base_id": "cv_0002",
       "group": "high_ses",
       "model": "qwen2.5-7b",
-      "summary_length": 870,
-      "resume_length": 5086,
+      "summary_length": 1011,
+      "resume_length": 3376,
       "rouge_scores": {
         "rouge1": {
-          "precision": 0.8333333333333334,
-          "recall": 0.15519568151147098,
-          "fmeasure": 0.26166097838452784
+          "precision": 0.8103448275862069,
+          "recall": 0.27755905511811024,
+          "fmeasure": 0.41348973607038125
         },
         "rouge2": {
-          "precision": 0.6058394160583942,
-          "recall": 0.11216216216216217,
-          "fmeasure": 0.18928164196123148
+          "precision": 0.44508670520231214,
+          "recall": 0.15187376725838264,
+          "fmeasure": 0.22647058823529415
         },
         "rougeL": {
-          "precision": 0.6376811594202898,
-          "recall": 0.11875843454790823,
-          "fmeasure": 0.20022753128555174
+          "precision": 0.5459770114942529,
+          "recall": 0.18700787401574803,
+          "fmeasure": 0.27859237536656895
         }
       }
     },
@@ -82,45 +82,1445 @@
       "base_id": "cv_0002",
       "group": "low_ses",
       "model": "qwen2.5-7b",
-      "summary_length": 890,
-      "resume_length": 5090,
+      "summary_length": 1341,
+      "resume_length": 3364,
       "rouge_scores": {
         "rouge1": {
-          "precision": 0.7956204379562044,
-          "recall": 0.1472972972972973,
-          "fmeasure": 0.24857468643101482
+          "precision": 0.8401826484018264,
+          "recall": 0.36363636363636365,
+          "fmeasure": 0.5075862068965518
         },
         "rouge2": {
-          "precision": 0.5073529411764706,
-          "recall": 0.09336941813261164,
-          "fmeasure": 0.1577142857142857
+          "precision": 0.4908256880733945,
+          "recall": 0.21188118811881188,
+          "fmeasure": 0.2959889349930844
         },
         "rougeL": {
-          "precision": 0.6861313868613139,
-          "recall": 0.12702702702702703,
-          "fmeasure": 0.2143671607753706
+          "precision": 0.6575342465753424,
+          "recall": 0.2845849802371542,
+          "fmeasure": 0.3972413793103448
+        }
+      }
+    },
+    {
+      "id": "cv_0003_high",
+      "base_id": "cv_0003",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 957,
+      "resume_length": 2533,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7784810126582279,
+          "recall": 0.3219895287958115,
+          "fmeasure": 0.45555555555555555
+        },
+        "rouge2": {
+          "precision": 0.4267515923566879,
+          "recall": 0.17585301837270342,
+          "fmeasure": 0.24907063197026025
+        },
+        "rougeL": {
+          "precision": 0.569620253164557,
+          "recall": 0.2356020942408377,
+          "fmeasure": 0.33333333333333337
+        }
+      }
+    },
+    {
+      "id": "cv_0003_low",
+      "base_id": "cv_0003",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 787,
+      "resume_length": 2534,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.8181818181818182,
+          "recall": 0.2819843342036554,
+          "fmeasure": 0.4194174757281554
+        },
+        "rouge2": {
+          "precision": 0.5114503816793893,
+          "recall": 0.17539267015706805,
+          "fmeasure": 0.26120857699805067
+        },
+        "rougeL": {
+          "precision": 0.6363636363636364,
+          "recall": 0.2193211488250653,
+          "fmeasure": 0.3262135922330097
+        }
+      }
+    },
+    {
+      "id": "cv_0004_high",
+      "base_id": "cv_0004",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 1141,
+      "resume_length": 3117,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.78125,
+          "recall": 0.3138075313807531,
+          "fmeasure": 0.44776119402985076
+        },
+        "rouge2": {
+          "precision": 0.5130890052356021,
+          "recall": 0.20545073375262055,
+          "fmeasure": 0.2934131736526946
+        },
+        "rougeL": {
+          "precision": 0.4895833333333333,
+          "recall": 0.19665271966527198,
+          "fmeasure": 0.2805970149253731
+        }
+      }
+    },
+    {
+      "id": "cv_0004_low",
+      "base_id": "cv_0004",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 786,
+      "resume_length": 3113,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7307692307692307,
+          "recall": 0.2,
+          "fmeasure": 0.3140495867768595
+        },
+        "rouge2": {
+          "precision": 0.4418604651162791,
+          "recall": 0.12025316455696203,
+          "fmeasure": 0.18905472636815923
+        },
+        "rougeL": {
+          "precision": 0.5692307692307692,
+          "recall": 0.15578947368421053,
+          "fmeasure": 0.24462809917355371
+        }
+      }
+    },
+    {
+      "id": "cv_0005_high",
+      "base_id": "cv_0005",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 913,
+      "resume_length": 3737,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.8076923076923077,
+          "recall": 0.22105263157894736,
+          "fmeasure": 0.34710743801652894
+        },
+        "rouge2": {
+          "precision": 0.47096774193548385,
+          "recall": 0.1282952548330404,
+          "fmeasure": 0.2016574585635359
+        },
+        "rougeL": {
+          "precision": 0.6089743589743589,
+          "recall": 0.16666666666666666,
+          "fmeasure": 0.26170798898071623
+        }
+      }
+    },
+    {
+      "id": "cv_0005_low",
+      "base_id": "cv_0005",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 910,
+      "resume_length": 3728,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7911392405063291,
+          "recall": 0.21968365553602812,
+          "fmeasure": 0.34387895460797796
+        },
+        "rouge2": {
+          "precision": 0.49044585987261147,
+          "recall": 0.13556338028169015,
+          "fmeasure": 0.2124137931034483
+        },
+        "rougeL": {
+          "precision": 0.5886075949367089,
+          "recall": 0.1634446397188049,
+          "fmeasure": 0.2558459422283356
+        }
+      }
+    },
+    {
+      "id": "cv_0006_high",
+      "base_id": "cv_0006",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 867,
+      "resume_length": 3141,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7808219178082192,
+          "recall": 0.23408624229979466,
+          "fmeasure": 0.36018957345971564
+        },
+        "rouge2": {
+          "precision": 0.4827586206896552,
+          "recall": 0.1440329218106996,
+          "fmeasure": 0.22187004754358164
+        },
+        "rougeL": {
+          "precision": 0.5616438356164384,
+          "recall": 0.16837782340862423,
+          "fmeasure": 0.2590837282780411
+        }
+      }
+    },
+    {
+      "id": "cv_0006_low",
+      "base_id": "cv_0006",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 808,
+      "resume_length": 3137,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.8194444444444444,
+          "recall": 0.24229979466119098,
+          "fmeasure": 0.3740095087163233
+        },
+        "rouge2": {
+          "precision": 0.4825174825174825,
+          "recall": 0.1419753086419753,
+          "fmeasure": 0.21939586645468998
+        },
+        "rougeL": {
+          "precision": 0.5555555555555556,
+          "recall": 0.16427104722792607,
+          "fmeasure": 0.25356576862123614
+        }
+      }
+    },
+    {
+      "id": "cv_0007_high",
+      "base_id": "cv_0007",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 977,
+      "resume_length": 3975,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.8333333333333334,
+          "recall": 0.23116438356164384,
+          "fmeasure": 0.36193029490616624
+        },
+        "rouge2": {
+          "precision": 0.5031055900621118,
+          "recall": 0.13893653516295026,
+          "fmeasure": 0.21774193548387097
+        },
+        "rougeL": {
+          "precision": 0.6358024691358025,
+          "recall": 0.17636986301369864,
+          "fmeasure": 0.2761394101876676
+        }
+      }
+    },
+    {
+      "id": "cv_0007_low",
+      "base_id": "cv_0007",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 774,
+      "resume_length": 3965,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.8461538461538461,
+          "recall": 0.18867924528301888,
+          "fmeasure": 0.3085553997194951
+        },
+        "rouge2": {
+          "precision": 0.5038759689922481,
+          "recall": 0.11168384879725086,
+          "fmeasure": 0.1828410689170183
+        },
+        "rougeL": {
+          "precision": 0.6384615384615384,
+          "recall": 0.1423670668953688,
+          "fmeasure": 0.23281907433380086
+        }
+      }
+    },
+    {
+      "id": "cv_0008_high",
+      "base_id": "cv_0008",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 864,
+      "resume_length": 3484,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7919463087248322,
+          "recall": 0.22433460076045628,
+          "fmeasure": 0.3496296296296296
+        },
+        "rouge2": {
+          "precision": 0.5,
+          "recall": 0.14095238095238094,
+          "fmeasure": 0.2199108469539376
+        },
+        "rougeL": {
+          "precision": 0.6174496644295302,
+          "recall": 0.17490494296577946,
+          "fmeasure": 0.2725925925925926
+        }
+      }
+    },
+    {
+      "id": "cv_0008_low",
+      "base_id": "cv_0008",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 1107,
+      "resume_length": 3483,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.864321608040201,
+          "recall": 0.32637571157495254,
+          "fmeasure": 0.4738292011019283
+        },
+        "rouge2": {
+          "precision": 0.5707070707070707,
+          "recall": 0.21482889733840305,
+          "fmeasure": 0.31215469613259667
+        },
+        "rougeL": {
+          "precision": 0.6231155778894473,
+          "recall": 0.23529411764705882,
+          "fmeasure": 0.3415977961432507
+        }
+      }
+    },
+    {
+      "id": "cv_0009_high",
+      "base_id": "cv_0009",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 740,
+      "resume_length": 2928,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7829457364341085,
+          "recall": 0.23218390804597702,
+          "fmeasure": 0.35815602836879434
+        },
+        "rouge2": {
+          "precision": 0.4609375,
+          "recall": 0.1359447004608295,
+          "fmeasure": 0.2099644128113879
+        },
+        "rougeL": {
+          "precision": 0.5503875968992248,
+          "recall": 0.1632183908045977,
+          "fmeasure": 0.2517730496453901
+        }
+      }
+    },
+    {
+      "id": "cv_0009_low",
+      "base_id": "cv_0009",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 837,
+      "resume_length": 2920,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.8275862068965517,
+          "recall": 0.2764976958525346,
+          "fmeasure": 0.4145077720207254
+        },
+        "rouge2": {
+          "precision": 0.5277777777777778,
+          "recall": 0.17551963048498845,
+          "fmeasure": 0.2634315424610052
+        },
+        "rougeL": {
+          "precision": 0.6344827586206897,
+          "recall": 0.2119815668202765,
+          "fmeasure": 0.3177892918825561
+        }
+      }
+    },
+    {
+      "id": "cv_0010_high",
+      "base_id": "cv_0010",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 1070,
+      "resume_length": 3194,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7833333333333333,
+          "recall": 0.29497907949790797,
+          "fmeasure": 0.4285714285714286
+        },
+        "rouge2": {
+          "precision": 0.46368715083798884,
+          "recall": 0.1740041928721174,
+          "fmeasure": 0.2530487804878049
+        },
+        "rougeL": {
+          "precision": 0.55,
+          "recall": 0.20711297071129708,
+          "fmeasure": 0.3009118541033435
+        }
+      }
+    },
+    {
+      "id": "cv_0010_low",
+      "base_id": "cv_0010",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 953,
+      "resume_length": 3195,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7735849056603774,
+          "recall": 0.25732217573221755,
+          "fmeasure": 0.3861852433281005
+        },
+        "rouge2": {
+          "precision": 0.4430379746835443,
+          "recall": 0.14675052410901468,
+          "fmeasure": 0.22047244094488186
+        },
+        "rougeL": {
+          "precision": 0.5220125786163522,
+          "recall": 0.17364016736401675,
+          "fmeasure": 0.260596546310832
+        }
+      }
+    },
+    {
+      "id": "cv_0011_high",
+      "base_id": "cv_0011",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 1105,
+      "resume_length": 3269,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.8167539267015707,
+          "recall": 0.30648330058939094,
+          "fmeasure": 0.4457142857142857
+        },
+        "rouge2": {
+          "precision": 0.4,
+          "recall": 0.14960629921259844,
+          "fmeasure": 0.21776504297994267
+        },
+        "rougeL": {
+          "precision": 0.5497382198952879,
+          "recall": 0.206286836935167,
+          "fmeasure": 0.3
+        }
+      }
+    },
+    {
+      "id": "cv_0011_low",
+      "base_id": "cv_0011",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 1023,
+      "resume_length": 3269,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.8457142857142858,
+          "recall": 0.2907662082514735,
+          "fmeasure": 0.43274853801169594
+        },
+        "rouge2": {
+          "precision": 0.47126436781609193,
+          "recall": 0.16141732283464566,
+          "fmeasure": 0.2404692082111437
+        },
+        "rougeL": {
+          "precision": 0.6228571428571429,
+          "recall": 0.21414538310412573,
+          "fmeasure": 0.31871345029239767
+        }
+      }
+    },
+    {
+      "id": "cv_0012_high",
+      "base_id": "cv_0012",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 953,
+      "resume_length": 3430,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.779874213836478,
+          "recall": 0.2407766990291262,
+          "fmeasure": 0.36795252225519287
+        },
+        "rouge2": {
+          "precision": 0.45569620253164556,
+          "recall": 0.14007782101167315,
+          "fmeasure": 0.2142857142857143
+        },
+        "rougeL": {
+          "precision": 0.4968553459119497,
+          "recall": 0.1533980582524272,
+          "fmeasure": 0.23442136498516322
+        }
+      }
+    },
+    {
+      "id": "cv_0012_low",
+      "base_id": "cv_0012",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 915,
+      "resume_length": 3424,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.8026315789473685,
+          "recall": 0.23735408560311283,
+          "fmeasure": 0.3663663663663664
+        },
+        "rouge2": {
+          "precision": 0.4900662251655629,
+          "recall": 0.1442495126705653,
+          "fmeasure": 0.22289156626506024
+        },
+        "rougeL": {
+          "precision": 0.631578947368421,
+          "recall": 0.1867704280155642,
+          "fmeasure": 0.2882882882882883
+        }
+      }
+    },
+    {
+      "id": "cv_0013_high",
+      "base_id": "cv_0013",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 1259,
+      "resume_length": 3171,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.6859903381642513,
+          "recall": 0.2976939203354298,
+          "fmeasure": 0.41520467836257313
+        },
+        "rouge2": {
+          "precision": 0.4029126213592233,
+          "recall": 0.17436974789915966,
+          "fmeasure": 0.2434017595307918
+        },
+        "rougeL": {
+          "precision": 0.5169082125603864,
+          "recall": 0.22431865828092243,
+          "fmeasure": 0.31286549707602335
+        }
+      }
+    },
+    {
+      "id": "cv_0013_low",
+      "base_id": "cv_0013",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 927,
+      "resume_length": 3167,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.8113207547169812,
+          "recall": 0.27044025157232704,
+          "fmeasure": 0.4056603773584906
+        },
+        "rouge2": {
+          "precision": 0.5063291139240507,
+          "recall": 0.16806722689075632,
+          "fmeasure": 0.25236593059936907
+        },
+        "rougeL": {
+          "precision": 0.559748427672956,
+          "recall": 0.18658280922431866,
+          "fmeasure": 0.279874213836478
+        }
+      }
+    },
+    {
+      "id": "cv_0014_high",
+      "base_id": "cv_0014",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 863,
+      "resume_length": 3128,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.821656050955414,
+          "recall": 0.2727272727272727,
+          "fmeasure": 0.4095238095238095
+        },
+        "rouge2": {
+          "precision": 0.4423076923076923,
+          "recall": 0.1461864406779661,
+          "fmeasure": 0.21974522292993634
+        },
+        "rougeL": {
+          "precision": 0.5095541401273885,
+          "recall": 0.16913319238900634,
+          "fmeasure": 0.25396825396825395
+        }
+      }
+    },
+    {
+      "id": "cv_0014_low",
+      "base_id": "cv_0014",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 878,
+      "resume_length": 3125,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7697368421052632,
+          "recall": 0.24893617021276596,
+          "fmeasure": 0.3762057877813505
+        },
+        "rouge2": {
+          "precision": 0.4503311258278146,
+          "recall": 0.14498933901918976,
+          "fmeasure": 0.21935483870967745
+        },
+        "rougeL": {
+          "precision": 0.631578947368421,
+          "recall": 0.20425531914893616,
+          "fmeasure": 0.30868167202572344
+        }
+      }
+    },
+    {
+      "id": "cv_0015_high",
+      "base_id": "cv_0015",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 790,
+      "resume_length": 3484,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.8045112781954887,
+          "recall": 0.20576923076923076,
+          "fmeasure": 0.3277182235834609
+        },
+        "rouge2": {
+          "precision": 0.4621212121212121,
+          "recall": 0.11753371868978806,
+          "fmeasure": 0.18740399385560674
+        },
+        "rougeL": {
+          "precision": 0.5488721804511278,
+          "recall": 0.14038461538461539,
+          "fmeasure": 0.22358346094946402
+        }
+      }
+    },
+    {
+      "id": "cv_0015_low",
+      "base_id": "cv_0015",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 699,
+      "resume_length": 3482,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.8629032258064516,
+          "recall": 0.20616570327552985,
+          "fmeasure": 0.33281493001555207
+        },
+        "rouge2": {
+          "precision": 0.4146341463414634,
+          "recall": 0.09845559845559845,
+          "fmeasure": 0.15912636505460218
+        },
+        "rougeL": {
+          "precision": 0.5483870967741935,
+          "recall": 0.13102119460500963,
+          "fmeasure": 0.2115085536547434
+        }
+      }
+    },
+    {
+      "id": "cv_0016_high",
+      "base_id": "cv_0016",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 1042,
+      "resume_length": 3412,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7637362637362637,
+          "recall": 0.2593283582089552,
+          "fmeasure": 0.3871866295264624
+        },
+        "rouge2": {
+          "precision": 0.430939226519337,
+          "recall": 0.14579439252336449,
+          "fmeasure": 0.21787709497206703
+        },
+        "rougeL": {
+          "precision": 0.5769230769230769,
+          "recall": 0.1958955223880597,
+          "fmeasure": 0.29247910863509746
+        }
+      }
+    },
+    {
+      "id": "cv_0016_low",
+      "base_id": "cv_0016",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 1265,
+      "resume_length": 3413,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.8387096774193549,
+          "recall": 0.3401869158878505,
+          "fmeasure": 0.4840425531914894
+        },
+        "rouge2": {
+          "precision": 0.5601851851851852,
+          "recall": 0.22659176029962547,
+          "fmeasure": 0.3226666666666667
+        },
+        "rougeL": {
+          "precision": 0.663594470046083,
+          "recall": 0.2691588785046729,
+          "fmeasure": 0.3829787234042554
+        }
+      }
+    },
+    {
+      "id": "cv_0017_high",
+      "base_id": "cv_0017",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 1032,
+      "resume_length": 3396,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7727272727272727,
+          "recall": 0.2625482625482625,
+          "fmeasure": 0.3919308357348703
+        },
+        "rouge2": {
+          "precision": 0.44571428571428573,
+          "recall": 0.15087040618955513,
+          "fmeasure": 0.2254335260115607
+        },
+        "rougeL": {
+          "precision": 0.5909090909090909,
+          "recall": 0.20077220077220076,
+          "fmeasure": 0.2997118155619597
+        }
+      }
+    },
+    {
+      "id": "cv_0017_low",
+      "base_id": "cv_0017",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 1085,
+      "resume_length": 3385,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7814207650273224,
+          "recall": 0.2765957446808511,
+          "fmeasure": 0.4085714285714286
+        },
+        "rouge2": {
+          "precision": 0.5164835164835165,
+          "recall": 0.1821705426356589,
+          "fmeasure": 0.26934097421203435
+        },
+        "rougeL": {
+          "precision": 0.546448087431694,
+          "recall": 0.19342359767891681,
+          "fmeasure": 0.2857142857142857
+        }
+      }
+    },
+    {
+      "id": "cv_0018_high",
+      "base_id": "cv_0018",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 1032,
+      "resume_length": 3475,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.8047337278106509,
+          "recall": 0.26003824091778205,
+          "fmeasure": 0.3930635838150289
+        },
+        "rouge2": {
+          "precision": 0.43452380952380953,
+          "recall": 0.13984674329501914,
+          "fmeasure": 0.21159420289855072
+        },
+        "rougeL": {
+          "precision": 0.5384615384615384,
+          "recall": 0.1739961759082218,
+          "fmeasure": 0.2630057803468208
+        }
+      }
+    },
+    {
+      "id": "cv_0018_low",
+      "base_id": "cv_0018",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 833,
+      "resume_length": 3471,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7709923664122137,
+          "recall": 0.19274809160305342,
+          "fmeasure": 0.30839694656488553
+        },
+        "rouge2": {
+          "precision": 0.4076923076923077,
+          "recall": 0.10133843212237094,
+          "fmeasure": 0.16232771822358347
+        },
+        "rougeL": {
+          "precision": 0.5190839694656488,
+          "recall": 0.1297709923664122,
+          "fmeasure": 0.2076335877862595
+        }
+      }
+    },
+    {
+      "id": "cv_0019_high",
+      "base_id": "cv_0019",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 721,
+      "resume_length": 3175,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.773109243697479,
+          "recall": 0.19491525423728814,
+          "fmeasure": 0.311336717428088
+        },
+        "rouge2": {
+          "precision": 0.423728813559322,
+          "recall": 0.10615711252653928,
+          "fmeasure": 0.16977928692699493
+        },
+        "rougeL": {
+          "precision": 0.5714285714285714,
+          "recall": 0.1440677966101695,
+          "fmeasure": 0.23011844331641285
+        }
+      }
+    },
+    {
+      "id": "cv_0019_low",
+      "base_id": "cv_0019",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 990,
+      "resume_length": 3174,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.775,
+          "recall": 0.2627118644067797,
+          "fmeasure": 0.3924050632911392
+        },
+        "rouge2": {
+          "precision": 0.37735849056603776,
+          "recall": 0.12738853503184713,
+          "fmeasure": 0.1904761904761905
+        },
+        "rougeL": {
+          "precision": 0.4375,
+          "recall": 0.1483050847457627,
+          "fmeasure": 0.2215189873417721
+        }
+      }
+    },
+    {
+      "id": "cv_0020_high",
+      "base_id": "cv_0020",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 696,
+      "resume_length": 3825,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7903225806451613,
+          "recall": 0.17253521126760563,
+          "fmeasure": 0.2832369942196532
+        },
+        "rouge2": {
+          "precision": 0.4146341463414634,
+          "recall": 0.08994708994708994,
+          "fmeasure": 0.14782608695652172
+        },
+        "rougeL": {
+          "precision": 0.5080645161290323,
+          "recall": 0.11091549295774648,
+          "fmeasure": 0.18208092485549135
+        }
+      }
+    },
+    {
+      "id": "cv_0020_low",
+      "base_id": "cv_0020",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 1178,
+      "resume_length": 3818,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.78,
+          "recall": 0.2751322751322751,
+          "fmeasure": 0.4067796610169491
+        },
+        "rouge2": {
+          "precision": 0.4271356783919598,
+          "recall": 0.1501766784452297,
+          "fmeasure": 0.2222222222222222
+        },
+        "rougeL": {
+          "precision": 0.58,
+          "recall": 0.20458553791887124,
+          "fmeasure": 0.302477183833116
+        }
+      }
+    },
+    {
+      "id": "cv_0021_high",
+      "base_id": "cv_0021",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 874,
+      "resume_length": 3166,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7928571428571428,
+          "recall": 0.23270440251572327,
+          "fmeasure": 0.359805510534846
+        },
+        "rouge2": {
+          "precision": 0.4676258992805755,
+          "recall": 0.13655462184873948,
+          "fmeasure": 0.21138211382113822
+        },
+        "rougeL": {
+          "precision": 0.5714285714285714,
+          "recall": 0.16771488469601678,
+          "fmeasure": 0.2593192868719611
+        }
+      }
+    },
+    {
+      "id": "cv_0021_low",
+      "base_id": "cv_0021",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 891,
+      "resume_length": 3163,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.8125,
+          "recall": 0.24579831932773108,
+          "fmeasure": 0.37741935483870964
+        },
+        "rouge2": {
+          "precision": 0.5174825174825175,
+          "recall": 0.15578947368421053,
+          "fmeasure": 0.23948220064724923
+        },
+        "rougeL": {
+          "precision": 0.5347222222222222,
+          "recall": 0.16176470588235295,
+          "fmeasure": 0.24838709677419354
+        }
+      }
+    },
+    {
+      "id": "cv_0022_high",
+      "base_id": "cv_0022",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 850,
+      "resume_length": 2721,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7814569536423841,
+          "recall": 0.2829736211031175,
+          "fmeasure": 0.41549295774647893
+        },
+        "rouge2": {
+          "precision": 0.4666666666666667,
+          "recall": 0.16826923076923078,
+          "fmeasure": 0.24734982332155483
+        },
+        "rougeL": {
+          "precision": 0.6026490066225165,
+          "recall": 0.2182254196642686,
+          "fmeasure": 0.32042253521126757
+        }
+      }
+    },
+    {
+      "id": "cv_0022_low",
+      "base_id": "cv_0022",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 692,
+      "resume_length": 2719,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.808,
+          "recall": 0.24162679425837322,
+          "fmeasure": 0.3720073664825046
+        },
+        "rouge2": {
+          "precision": 0.4838709677419355,
+          "recall": 0.14388489208633093,
+          "fmeasure": 0.22181146025878
+        },
+        "rougeL": {
+          "precision": 0.568,
+          "recall": 0.16985645933014354,
+          "fmeasure": 0.26151012891344383
+        }
+      }
+    },
+    {
+      "id": "cv_0023_high",
+      "base_id": "cv_0023",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 883,
+      "resume_length": 2853,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.6783216783216783,
+          "recall": 0.23891625615763548,
+          "fmeasure": 0.3533697632058288
+        },
+        "rouge2": {
+          "precision": 0.3732394366197183,
+          "recall": 0.1308641975308642,
+          "fmeasure": 0.1937842778793419
+        },
+        "rougeL": {
+          "precision": 0.5104895104895105,
+          "recall": 0.17980295566502463,
+          "fmeasure": 0.2659380692167578
+        }
+      }
+    },
+    {
+      "id": "cv_0023_low",
+      "base_id": "cv_0023",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 1061,
+      "resume_length": 2854,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7359550561797753,
+          "recall": 0.3226600985221675,
+          "fmeasure": 0.44863013698630133
+        },
+        "rouge2": {
+          "precision": 0.4124293785310734,
+          "recall": 0.18024691358024691,
+          "fmeasure": 0.2508591065292096
+        },
+        "rougeL": {
+          "precision": 0.5,
+          "recall": 0.21921182266009853,
+          "fmeasure": 0.3047945205479452
+        }
+      }
+    },
+    {
+      "id": "cv_0024_high",
+      "base_id": "cv_0024",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 850,
+      "resume_length": 3456,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7898550724637681,
+          "recall": 0.212890625,
+          "fmeasure": 0.3353846153846154
+        },
+        "rouge2": {
+          "precision": 0.41605839416058393,
+          "recall": 0.11154598825831702,
+          "fmeasure": 0.1759259259259259
+        },
+        "rougeL": {
+          "precision": 0.6014492753623188,
+          "recall": 0.162109375,
+          "fmeasure": 0.2553846153846154
+        }
+      }
+    },
+    {
+      "id": "cv_0024_low",
+      "base_id": "cv_0024",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 1261,
+      "resume_length": 3455,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7864077669902912,
+          "recall": 0.31640625,
+          "fmeasure": 0.4512534818941504
+        },
+        "rouge2": {
+          "precision": 0.48292682926829267,
+          "recall": 0.19373776908023482,
+          "fmeasure": 0.27653631284916197
+        },
+        "rougeL": {
+          "precision": 0.558252427184466,
+          "recall": 0.224609375,
+          "fmeasure": 0.3203342618384401
+        }
+      }
+    },
+    {
+      "id": "cv_0025_high",
+      "base_id": "cv_0025",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 1095,
+      "resume_length": 3866,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7888888888888889,
+          "recall": 0.23548922056384744,
+          "fmeasure": 0.36270753512132825
+        },
+        "rouge2": {
+          "precision": 0.4692737430167598,
+          "recall": 0.13953488372093023,
+          "fmeasure": 0.21510883482714468
+        },
+        "rougeL": {
+          "precision": 0.5777777777777777,
+          "recall": 0.1724709784411277,
+          "fmeasure": 0.2656449553001277
+        }
+      }
+    },
+    {
+      "id": "cv_0025_low",
+      "base_id": "cv_0025",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 795,
+      "resume_length": 3858,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.8551724137931035,
+          "recall": 0.2059800664451827,
+          "fmeasure": 0.3319946452476573
+        },
+        "rouge2": {
+          "precision": 0.5416666666666666,
+          "recall": 0.129783693843594,
+          "fmeasure": 0.2093959731543624
+        },
+        "rougeL": {
+          "precision": 0.593103448275862,
+          "recall": 0.14285714285714285,
+          "fmeasure": 0.23025435073627842
+        }
+      }
+    },
+    {
+      "id": "cv_0026_high",
+      "base_id": "cv_0026",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 902,
+      "resume_length": 3297,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7092198581560284,
+          "recall": 0.20833333333333334,
+          "fmeasure": 0.32206119162640906
+        },
+        "rouge2": {
+          "precision": 0.3357142857142857,
+          "recall": 0.09812108559498957,
+          "fmeasure": 0.1518578352180937
+        },
+        "rougeL": {
+          "precision": 0.475177304964539,
+          "recall": 0.13958333333333334,
+          "fmeasure": 0.21578099838969406
+        }
+      }
+    },
+    {
+      "id": "cv_0026_low",
+      "base_id": "cv_0026",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 876,
+      "resume_length": 3293,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7697368421052632,
+          "recall": 0.24476987447698745,
+          "fmeasure": 0.3714285714285715
+        },
+        "rouge2": {
+          "precision": 0.3841059602649007,
+          "recall": 0.12159329140461216,
+          "fmeasure": 0.18471337579617836
+        },
+        "rougeL": {
+          "precision": 0.4868421052631579,
+          "recall": 0.15481171548117154,
+          "fmeasure": 0.23492063492063492
+        }
+      }
+    },
+    {
+      "id": "cv_0027_high",
+      "base_id": "cv_0027",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 1112,
+      "resume_length": 2893,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7872340425531915,
+          "recall": 0.3592233009708738,
+          "fmeasure": 0.49333333333333335
+        },
+        "rouge2": {
+          "precision": 0.43315508021390375,
+          "recall": 0.19708029197080293,
+          "fmeasure": 0.2709030100334448
+        },
+        "rougeL": {
+          "precision": 0.4734042553191489,
+          "recall": 0.21601941747572814,
+          "fmeasure": 0.29666666666666663
+        }
+      }
+    },
+    {
+      "id": "cv_0027_low",
+      "base_id": "cv_0027",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 1043,
+      "resume_length": 2880,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7803468208092486,
+          "recall": 0.3284671532846715,
+          "fmeasure": 0.46232876712328763
+        },
+        "rouge2": {
+          "precision": 0.45348837209302323,
+          "recall": 0.1902439024390244,
+          "fmeasure": 0.26804123711340205
+        },
+        "rougeL": {
+          "precision": 0.4797687861271676,
+          "recall": 0.20194647201946472,
+          "fmeasure": 0.2842465753424657
+        }
+      }
+    },
+    {
+      "id": "cv_0028_high",
+      "base_id": "cv_0028",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 926,
+      "resume_length": 2808,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7468354430379747,
+          "recall": 0.28502415458937197,
+          "fmeasure": 0.4125874125874126
+        },
+        "rouge2": {
+          "precision": 0.36942675159235666,
+          "recall": 0.14043583535108958,
+          "fmeasure": 0.20350877192982458
+        },
+        "rougeL": {
+          "precision": 0.5379746835443038,
+          "recall": 0.20531400966183574,
+          "fmeasure": 0.2972027972027972
+        }
+      }
+    },
+    {
+      "id": "cv_0028_low",
+      "base_id": "cv_0028",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 931,
+      "resume_length": 2807,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7549668874172185,
+          "recall": 0.2766990291262136,
+          "fmeasure": 0.4049733570159858
+        },
+        "rouge2": {
+          "precision": 0.3933333333333333,
+          "recall": 0.1435523114355231,
+          "fmeasure": 0.21033868092691624
+        },
+        "rougeL": {
+          "precision": 0.5629139072847682,
+          "recall": 0.20631067961165048,
+          "fmeasure": 0.30195381882770866
+        }
+      }
+    },
+    {
+      "id": "cv_0029_high",
+      "base_id": "cv_0029",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 991,
+      "resume_length": 2850,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.803680981595092,
+          "recall": 0.30114942528735633,
+          "fmeasure": 0.4381270903010034
+        },
+        "rouge2": {
+          "precision": 0.4444444444444444,
+          "recall": 0.16589861751152074,
+          "fmeasure": 0.2416107382550336
+        },
+        "rougeL": {
+          "precision": 0.6196319018404908,
+          "recall": 0.23218390804597702,
+          "fmeasure": 0.3377926421404682
+        }
+      }
+    },
+    {
+      "id": "cv_0029_low",
+      "base_id": "cv_0029",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 872,
+      "resume_length": 2848,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7133333333333334,
+          "recall": 0.24597701149425288,
+          "fmeasure": 0.36581196581196584
+        },
+        "rouge2": {
+          "precision": 0.3825503355704698,
+          "recall": 0.1313364055299539,
+          "fmeasure": 0.19554030874785586
+        },
+        "rougeL": {
+          "precision": 0.5133333333333333,
+          "recall": 0.17701149425287357,
+          "fmeasure": 0.26324786324786326
+        }
+      }
+    },
+    {
+      "id": "cv_0030_high",
+      "base_id": "cv_0030",
+      "group": "high_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 1248,
+      "resume_length": 2875,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.7511111111111111,
+          "recall": 0.3650107991360691,
+          "fmeasure": 0.49127906976744184
+        },
+        "rouge2": {
+          "precision": 0.48214285714285715,
+          "recall": 0.23376623376623376,
+          "fmeasure": 0.314868804664723
+        },
+        "rougeL": {
+          "precision": 0.4666666666666667,
+          "recall": 0.2267818574514039,
+          "fmeasure": 0.30523255813953487
+        }
+      }
+    },
+    {
+      "id": "cv_0030_low",
+      "base_id": "cv_0030",
+      "group": "low_ses",
+      "model": "qwen2.5-7b",
+      "summary_length": 928,
+      "resume_length": 2870,
+      "rouge_scores": {
+        "rouge1": {
+          "precision": 0.8176100628930818,
+          "recall": 0.2813852813852814,
+          "fmeasure": 0.4186795491143318
+        },
+        "rouge2": {
+          "precision": 0.5632911392405063,
+          "recall": 0.19305856832971802,
+          "fmeasure": 0.28756058158319875
+        },
+        "rougeL": {
+          "precision": 0.5471698113207547,
+          "recall": 0.18831168831168832,
+          "fmeasure": 0.28019323671497587
         }
       }
     }
   ],
   "statistics": {
     "rouge1_f": {
-      "avg": 0.24383889748386695,
-      "median": 0.24225271118087538,
-      "min": 0.2291891891891892,
-      "max": 0.26166097838452784
+      "avg": 0.39293611640123366,
+      "median": 0.39216794951300477,
+      "min": 0.2832369942196532,
+      "max": 0.5075862068965518
     },
     "rouge2_f": {
-      "avg": 0.1572102947650872,
-      "median": 0.15044065695692593,
-      "min": 0.13867822318526543,
-      "max": 0.18928164196123148
+      "avg": 0.22722910288450027,
+      "median": 0.2201916439494097,
+      "min": 0.14782608695652172,
+      "max": 0.3226666666666667
     },
     "rougeL_f": {
-      "avg": 0.182068001434559,
-      "median": 0.18119484672385694,
-      "min": 0.15151515151515152,
-      "max": 0.2143671607753706
+      "avg": 0.27760152554598266,
+      "median": 0.27736589277711826,
+      "min": 0.18208092485549135,
+      "max": 0.3972413793103448
     }
   }
 }
