@@ -87,13 +87,14 @@ def load_llama2_model(model_name: str = "meta-llama/Llama-2-7b-chat-hf"):
         ) from e
 
 
-def generate_with_llama2(prompt: str, max_new_tokens: int = 200) -> str:
+def generate_with_llama2(prompt: str, max_new_tokens: int = 350) -> str:
     """
     Genera un resumen usando Llama 2 7B.
     
     Args:
         prompt: Prompt completo para el modelo
-        max_new_tokens: Número máximo de tokens nuevos a generar (default: 200)
+        max_new_tokens: Número máximo de tokens nuevos a generar (default: 500,
+                       suficiente para ~300-400 palabras en español)
         
     Returns:
         Texto del resumen generado
@@ -150,6 +151,10 @@ def generate_with_llama2(prompt: str, max_new_tokens: int = 200) -> str:
             generated_text = full_text.split("[/INST]")[-1].strip()
         else:
             generated_text = full_text[len(formatted_prompt):].strip()
+    
+    # Liberar memoria de CUDA si está disponible
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
     
     return generated_text
 
@@ -217,13 +222,14 @@ def load_qwen_model(model_name: str = "Qwen/Qwen2.5-7B-Instruct"):
         ) from e
 
 
-def generate_with_qwen(prompt: str, max_new_tokens: int = 200) -> str:
+def generate_with_qwen(prompt: str, max_new_tokens: int = 350) -> str:
     """
     Genera un resumen usando Qwen 2.5 7B.
     
     Args:
         prompt: Prompt completo para el modelo
-        max_new_tokens: Número máximo de tokens nuevos a generar (default: 200)
+        max_new_tokens: Número máximo de tokens nuevos a generar (default: 500,
+                       suficiente para ~300-400 palabras en español)
         
     Returns:
         Texto del resumen generado
@@ -287,6 +293,10 @@ def generate_with_qwen(prompt: str, max_new_tokens: int = 200) -> str:
     
     # Limpiar el texto generado
     generated_text = generated_text.strip()
+    
+    # Liberar memoria de CUDA si está disponible
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
     
     return generated_text
 

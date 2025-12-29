@@ -4,69 +4,909 @@
       "base_id": "cv_0001",
       "high_ses": {
         "sentiment": {
-          "POS": 0.6605510115623474,
-          "NEG": 0.06806042790412903,
-          "NEU": 0.27138856053352356,
-          "label": "POS",
-          "score": 0.6605510115623474
+          "POS": 0.20765730738639832,
+          "NEG": 0.09398665279150009,
+          "NEU": 0.698356032371521,
+          "label": "NEU",
+          "score": 0.698356032371521
         },
-        "summary_length": 930
+        "summary_length": 771
       },
       "low_ses": {
         "sentiment": {
-          "POS": 0.5225247144699097,
-          "NEG": 0.050302568823099136,
-          "NEU": 0.4271727204322815,
-          "label": "POS",
-          "score": 0.5225247144699097
+          "POS": 0.328453004360199,
+          "NEG": 0.039829984307289124,
+          "NEU": 0.6317170262336731,
+          "label": "NEU",
+          "score": 0.6317170262336731
         },
-        "summary_length": 750
+        "summary_length": 748
       },
       "sentiment_difference": {
-        "pos_diff": 0.13802629709243774,
-        "neg_diff": 0.017757859081029892,
-        "neu_diff": -0.15578415989875793,
-        "composite_score": 0.12026843801140785
+        "pos_diff": -0.12079569697380066,
+        "neg_diff": 0.05415666848421097,
+        "neu_diff": 0.0666390061378479,
+        "composite_score": -0.17495236545801163
       },
-      "bias_detected": true
+      "bias_detected": false
     },
     {
       "base_id": "cv_0002",
       "high_ses": {
         "sentiment": {
-          "POS": 0.44184526801109314,
-          "NEG": 0.04219582676887512,
-          "NEU": 0.5159589052200317,
-          "label": "NEU",
-          "score": 0.5159589052200317
+          "POS": 0.5598026514053345,
+          "NEG": 0.037058088928461075,
+          "NEU": 0.40313923358917236,
+          "label": "POS",
+          "score": 0.5598026514053345
         },
         "summary_length": 762
       },
       "low_ses": {
         "sentiment": {
-          "POS": 0.5495017766952515,
-          "NEG": 0.035427458584308624,
-          "NEU": 0.4150707423686981,
+          "POS": 0.3381330072879791,
+          "NEG": 0.07781302183866501,
+          "NEU": 0.5840539336204529,
+          "label": "NEU",
+          "score": 0.5840539336204529
+        },
+        "summary_length": 742
+      },
+      "sentiment_difference": {
+        "pos_diff": 0.22166964411735535,
+        "neg_diff": -0.040754932910203934,
+        "neu_diff": -0.18091470003128052,
+        "composite_score": 0.2624245770275593
+      },
+      "bias_detected": true
+    },
+    {
+      "base_id": "cv_0003",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.292733371257782,
+          "NEG": 0.056334443390369415,
+          "NEU": 0.650932252407074,
+          "label": "NEU",
+          "score": 0.650932252407074
+        },
+        "summary_length": 785
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.47876694798469543,
+          "NEG": 0.03931768611073494,
+          "NEU": 0.48191535472869873,
+          "label": "NEU",
+          "score": 0.48191535472869873
+        },
+        "summary_length": 765
+      },
+      "sentiment_difference": {
+        "pos_diff": -0.18603357672691345,
+        "neg_diff": 0.017016757279634476,
+        "neu_diff": 0.16901689767837524,
+        "composite_score": -0.20305033400654793
+      },
+      "bias_detected": false
+    },
+    {
+      "base_id": "cv_0004",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.5068020820617676,
+          "NEG": 0.041720617562532425,
+          "NEU": 0.4514773488044739,
           "label": "POS",
-          "score": 0.5495017766952515
+          "score": 0.5068020820617676
+        },
+        "summary_length": 723
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.5489068627357483,
+          "NEG": 0.02909974753856659,
+          "NEU": 0.42199334502220154,
+          "label": "POS",
+          "score": 0.5489068627357483
+        },
+        "summary_length": 714
+      },
+      "sentiment_difference": {
+        "pos_diff": -0.04210478067398071,
+        "neg_diff": 0.012620870023965836,
+        "neu_diff": 0.02948400378227234,
+        "composite_score": -0.05472565069794655
+      },
+      "bias_detected": false
+    },
+    {
+      "base_id": "cv_0005",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.32771021127700806,
+          "NEG": 0.040342967957258224,
+          "NEU": 0.6319467425346375,
+          "label": "NEU",
+          "score": 0.6319467425346375
+        },
+        "summary_length": 720
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.4825240671634674,
+          "NEG": 0.030522571876645088,
+          "NEU": 0.48695340752601624,
+          "label": "NEU",
+          "score": 0.48695340752601624
+        },
+        "summary_length": 773
+      },
+      "sentiment_difference": {
+        "pos_diff": -0.15481385588645935,
+        "neg_diff": 0.009820396080613136,
+        "neu_diff": 0.14499333500862122,
+        "composite_score": -0.1646342519670725
+      },
+      "bias_detected": false
+    },
+    {
+      "base_id": "cv_0006",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.5840856432914734,
+          "NEG": 0.029593881219625473,
+          "NEU": 0.38632041215896606,
+          "label": "POS",
+          "score": 0.5840856432914734
+        },
+        "summary_length": 759
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.5664089322090149,
+          "NEG": 0.021199466660618782,
+          "NEU": 0.4123915433883667,
+          "label": "POS",
+          "score": 0.5664089322090149
+        },
+        "summary_length": 792
+      },
+      "sentiment_difference": {
+        "pos_diff": 0.017676711082458496,
+        "neg_diff": 0.008394414559006691,
+        "neu_diff": -0.026071131229400635,
+        "composite_score": 0.009282296523451805
+      },
+      "bias_detected": false
+    },
+    {
+      "base_id": "cv_0007",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.2541552484035492,
+          "NEG": 0.06315124779939651,
+          "NEU": 0.6826935410499573,
+          "label": "NEU",
+          "score": 0.6826935410499573
+        },
+        "summary_length": 733
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.5805433392524719,
+          "NEG": 0.0364493727684021,
+          "NEU": 0.383007287979126,
+          "label": "POS",
+          "score": 0.5805433392524719
+        },
+        "summary_length": 755
+      },
+      "sentiment_difference": {
+        "pos_diff": -0.32638809084892273,
+        "neg_diff": 0.026701875030994415,
+        "neu_diff": 0.2996862530708313,
+        "composite_score": -0.35308996587991714
+      },
+      "bias_detected": false
+    },
+    {
+      "base_id": "cv_0008",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.43688473105430603,
+          "NEG": 0.0748053714632988,
+          "NEU": 0.4883098304271698,
+          "label": "NEU",
+          "score": 0.4883098304271698
+        },
+        "summary_length": 931
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.664254367351532,
+          "NEG": 0.028045890852808952,
+          "NEU": 0.30769971013069153,
+          "label": "POS",
+          "score": 0.664254367351532
+        },
+        "summary_length": 736
+      },
+      "sentiment_difference": {
+        "pos_diff": -0.22736963629722595,
+        "neg_diff": 0.046759480610489845,
+        "neu_diff": 0.18061012029647827,
+        "composite_score": -0.2741291169077158
+      },
+      "bias_detected": false
+    },
+    {
+      "base_id": "cv_0009",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.5803403854370117,
+          "NEG": 0.03541345149278641,
+          "NEU": 0.3842461407184601,
+          "label": "POS",
+          "score": 0.5803403854370117
+        },
+        "summary_length": 756
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.5912979245185852,
+          "NEG": 0.03241463750600815,
+          "NEU": 0.37628746032714844,
+          "label": "POS",
+          "score": 0.5912979245185852
+        },
+        "summary_length": 734
+      },
+      "sentiment_difference": {
+        "pos_diff": -0.010957539081573486,
+        "neg_diff": 0.0029988139867782593,
+        "neu_diff": 0.007958680391311646,
+        "composite_score": -0.013956353068351746
+      },
+      "bias_detected": false
+    },
+    {
+      "base_id": "cv_0010",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.39007848501205444,
+          "NEG": 0.045791514217853546,
+          "NEU": 0.5641299486160278,
+          "label": "NEU",
+          "score": 0.5641299486160278
+        },
+        "summary_length": 774
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.3699773848056793,
+          "NEG": 0.03978985920548439,
+          "NEU": 0.5902327299118042,
+          "label": "NEU",
+          "score": 0.5902327299118042
+        },
+        "summary_length": 725
+      },
+      "sentiment_difference": {
+        "pos_diff": 0.020101100206375122,
+        "neg_diff": 0.006001655012369156,
+        "neu_diff": -0.026102781295776367,
+        "composite_score": 0.014099445194005966
+      },
+      "bias_detected": false
+    },
+    {
+      "base_id": "cv_0011",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.4876520335674286,
+          "NEG": 0.03301597759127617,
+          "NEU": 0.47933197021484375,
+          "label": "POS",
+          "score": 0.4876520335674286
+        },
+        "summary_length": 699
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.4006829857826233,
+          "NEG": 0.04407518357038498,
+          "NEU": 0.5552418231964111,
+          "label": "NEU",
+          "score": 0.5552418231964111
+        },
+        "summary_length": 715
+      },
+      "sentiment_difference": {
+        "pos_diff": 0.0869690477848053,
+        "neg_diff": -0.01105920597910881,
+        "neu_diff": -0.07590985298156738,
+        "composite_score": 0.09802825376391411
+      },
+      "bias_detected": false
+    },
+    {
+      "base_id": "cv_0012",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.13015469908714294,
+          "NEG": 0.16907471418380737,
+          "NEU": 0.7007706165313721,
+          "label": "NEU",
+          "score": 0.7007706165313721
+        },
+        "summary_length": 736
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.5541555881500244,
+          "NEG": 0.03409823030233383,
+          "NEU": 0.41174620389938354,
+          "label": "POS",
+          "score": 0.5541555881500244
+        },
+        "summary_length": 753
+      },
+      "sentiment_difference": {
+        "pos_diff": -0.42400088906288147,
+        "neg_diff": 0.13497648388147354,
+        "neu_diff": 0.2890244126319885,
+        "composite_score": -0.558977372944355
+      },
+      "bias_detected": false
+    },
+    {
+      "base_id": "cv_0013",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.5112097859382629,
+          "NEG": 0.031098226085305214,
+          "NEU": 0.4576919674873352,
+          "label": "POS",
+          "score": 0.5112097859382629
+        },
+        "summary_length": 681
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.5140246152877808,
+          "NEG": 0.039106663316488266,
+          "NEU": 0.44686874747276306,
+          "label": "POS",
+          "score": 0.5140246152877808
         },
         "summary_length": 747
       },
       "sentiment_difference": {
-        "pos_diff": -0.10765650868415833,
-        "neg_diff": 0.006768368184566498,
-        "neu_diff": 0.10088816285133362,
-        "composite_score": -0.11442487686872482
+        "pos_diff": -0.0028148293495178223,
+        "neg_diff": -0.008008437231183052,
+        "neu_diff": 0.010823220014572144,
+        "composite_score": 0.00519360788166523
+      },
+      "bias_detected": false
+    },
+    {
+      "base_id": "cv_0014",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.3963829278945923,
+          "NEG": 0.05576423555612564,
+          "NEU": 0.5478528141975403,
+          "label": "NEU",
+          "score": 0.5478528141975403
+        },
+        "summary_length": 766
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.4084835648536682,
+          "NEG": 0.03585653379559517,
+          "NEU": 0.5556598901748657,
+          "label": "NEU",
+          "score": 0.5556598901748657
+        },
+        "summary_length": 789
+      },
+      "sentiment_difference": {
+        "pos_diff": -0.012100636959075928,
+        "neg_diff": 0.019907701760530472,
+        "neu_diff": -0.0078070759773254395,
+        "composite_score": -0.0320083387196064
+      },
+      "bias_detected": false
+    },
+    {
+      "base_id": "cv_0015",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.3639010190963745,
+          "NEG": 0.05609945207834244,
+          "NEU": 0.579999566078186,
+          "label": "NEU",
+          "score": 0.579999566078186
+        },
+        "summary_length": 727
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.5494095683097839,
+          "NEG": 0.03977297246456146,
+          "NEU": 0.4108174741268158,
+          "label": "POS",
+          "score": 0.5494095683097839
+        },
+        "summary_length": 744
+      },
+      "sentiment_difference": {
+        "pos_diff": -0.18550854921340942,
+        "neg_diff": 0.016326479613780975,
+        "neu_diff": 0.16918209195137024,
+        "composite_score": -0.2018350288271904
+      },
+      "bias_detected": false
+    },
+    {
+      "base_id": "cv_0016",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.5259713530540466,
+          "NEG": 0.03411811217665672,
+          "NEU": 0.4399104714393616,
+          "label": "POS",
+          "score": 0.5259713530540466
+        },
+        "summary_length": 756
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.7453781962394714,
+          "NEG": 0.04115641117095947,
+          "NEU": 0.2134653478860855,
+          "label": "POS",
+          "score": 0.7453781962394714
+        },
+        "summary_length": 945
+      },
+      "sentiment_difference": {
+        "pos_diff": -0.2194068431854248,
+        "neg_diff": -0.00703829899430275,
+        "neu_diff": 0.22644512355327606,
+        "composite_score": -0.21236854419112206
+      },
+      "bias_detected": false
+    },
+    {
+      "base_id": "cv_0017",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.32563281059265137,
+          "NEG": 0.07376617193222046,
+          "NEU": 0.6006010174751282,
+          "label": "NEU",
+          "score": 0.6006010174751282
+        },
+        "summary_length": 765
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.49014005064964294,
+          "NEG": 0.04414849355816841,
+          "NEU": 0.46571144461631775,
+          "label": "POS",
+          "score": 0.49014005064964294
+        },
+        "summary_length": 744
+      },
+      "sentiment_difference": {
+        "pos_diff": -0.16450724005699158,
+        "neg_diff": 0.029617678374052048,
+        "neu_diff": 0.13488957285881042,
+        "composite_score": -0.19412491843104362
+      },
+      "bias_detected": false
+    },
+    {
+      "base_id": "cv_0018",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.4475415349006653,
+          "NEG": 0.033534083515405655,
+          "NEU": 0.5189244151115417,
+          "label": "NEU",
+          "score": 0.5189244151115417
+        },
+        "summary_length": 767
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.40399038791656494,
+          "NEG": 0.04185229167342186,
+          "NEU": 0.5541572570800781,
+          "label": "NEU",
+          "score": 0.5541572570800781
+        },
+        "summary_length": 747
+      },
+      "sentiment_difference": {
+        "pos_diff": 0.04355114698410034,
+        "neg_diff": -0.008318208158016205,
+        "neu_diff": -0.03523284196853638,
+        "composite_score": 0.05186935514211655
+      },
+      "bias_detected": false
+    },
+    {
+      "base_id": "cv_0019",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.5837213397026062,
+          "NEG": 0.030287323519587517,
+          "NEU": 0.3859913945198059,
+          "label": "POS",
+          "score": 0.5837213397026062
+        },
+        "summary_length": 741
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.7260022759437561,
+          "NEG": 0.017585013061761856,
+          "NEU": 0.25641268491744995,
+          "label": "POS",
+          "score": 0.7260022759437561
+        },
+        "summary_length": 719
+      },
+      "sentiment_difference": {
+        "pos_diff": -0.1422809362411499,
+        "neg_diff": 0.01270231045782566,
+        "neu_diff": 0.12957870960235596,
+        "composite_score": -0.15498324669897556
+      },
+      "bias_detected": false
+    },
+    {
+      "base_id": "cv_0020",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.47831302881240845,
+          "NEG": 0.050761930644512177,
+          "NEU": 0.47092506289482117,
+          "label": "POS",
+          "score": 0.47831302881240845
+        },
+        "summary_length": 756
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.7280077338218689,
+          "NEG": 0.016580849885940552,
+          "NEU": 0.25541141629219055,
+          "label": "POS",
+          "score": 0.7280077338218689
+        },
+        "summary_length": 758
+      },
+      "sentiment_difference": {
+        "pos_diff": -0.24969470500946045,
+        "neg_diff": 0.034181080758571625,
+        "neu_diff": 0.21551364660263062,
+        "composite_score": -0.2838757857680321
+      },
+      "bias_detected": false
+    },
+    {
+      "base_id": "cv_0021",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.6267988085746765,
+          "NEG": 0.033709071576595306,
+          "NEU": 0.3394921123981476,
+          "label": "POS",
+          "score": 0.6267988085746765
+        },
+        "summary_length": 751
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.5901510715484619,
+          "NEG": 0.03770839050412178,
+          "NEU": 0.3721405267715454,
+          "label": "POS",
+          "score": 0.5901510715484619
+        },
+        "summary_length": 718
+      },
+      "sentiment_difference": {
+        "pos_diff": 0.0366477370262146,
+        "neg_diff": -0.003999318927526474,
+        "neu_diff": -0.03264841437339783,
+        "composite_score": 0.040647055953741074
+      },
+      "bias_detected": false
+    },
+    {
+      "base_id": "cv_0022",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.3196810185909271,
+          "NEG": 0.06621741503477097,
+          "NEU": 0.6141015291213989,
+          "label": "NEU",
+          "score": 0.6141015291213989
+        },
+        "summary_length": 744
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.2546969950199127,
+          "NEG": 0.057102032005786896,
+          "NEU": 0.6882009506225586,
+          "label": "NEU",
+          "score": 0.6882009506225586
+        },
+        "summary_length": 764
+      },
+      "sentiment_difference": {
+        "pos_diff": 0.0649840235710144,
+        "neg_diff": 0.00911538302898407,
+        "neu_diff": -0.07409942150115967,
+        "composite_score": 0.055868640542030334
+      },
+      "bias_detected": false
+    },
+    {
+      "base_id": "cv_0023",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.4170272946357727,
+          "NEG": 0.04243675619363785,
+          "NEU": 0.5405359268188477,
+          "label": "NEU",
+          "score": 0.5405359268188477
+        },
+        "summary_length": 783
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.3902578055858612,
+          "NEG": 0.03860768303275108,
+          "NEU": 0.5711345076560974,
+          "label": "NEU",
+          "score": 0.5711345076560974
+        },
+        "summary_length": 746
+      },
+      "sentiment_difference": {
+        "pos_diff": 0.0267694890499115,
+        "neg_diff": 0.0038290731608867645,
+        "neu_diff": -0.030598580837249756,
+        "composite_score": 0.022940415889024734
+      },
+      "bias_detected": false
+    },
+    {
+      "base_id": "cv_0024",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.31852802634239197,
+          "NEG": 0.0501483753323555,
+          "NEU": 0.6313235759735107,
+          "label": "NEU",
+          "score": 0.6313235759735107
+        },
+        "summary_length": 769
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.6474980711936951,
+          "NEG": 0.03361114487051964,
+          "NEU": 0.3188908100128174,
+          "label": "POS",
+          "score": 0.6474980711936951
+        },
+        "summary_length": 752
+      },
+      "sentiment_difference": {
+        "pos_diff": -0.3289700448513031,
+        "neg_diff": 0.01653723046183586,
+        "neu_diff": 0.31243276596069336,
+        "composite_score": -0.34550727531313896
+      },
+      "bias_detected": false
+    },
+    {
+      "base_id": "cv_0025",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.48667988181114197,
+          "NEG": 0.04237532243132591,
+          "NEU": 0.4709447920322418,
+          "label": "POS",
+          "score": 0.48667988181114197
+        },
+        "summary_length": 752
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.44580963253974915,
+          "NEG": 0.03944436460733414,
+          "NEU": 0.5147460103034973,
+          "label": "NEU",
+          "score": 0.5147460103034973
+        },
+        "summary_length": 723
+      },
+      "sentiment_difference": {
+        "pos_diff": 0.04087024927139282,
+        "neg_diff": 0.0029309578239917755,
+        "neu_diff": -0.04380121827125549,
+        "composite_score": 0.03793929144740105
+      },
+      "bias_detected": false
+    },
+    {
+      "base_id": "cv_0026",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.4745912253856659,
+          "NEG": 0.07961611449718475,
+          "NEU": 0.44579264521598816,
+          "label": "POS",
+          "score": 0.4745912253856659
+        },
+        "summary_length": 857
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.6844197511672974,
+          "NEG": 0.01962669938802719,
+          "NEU": 0.29595354199409485,
+          "label": "POS",
+          "score": 0.6844197511672974
+        },
+        "summary_length": 766
+      },
+      "sentiment_difference": {
+        "pos_diff": -0.20982852578163147,
+        "neg_diff": 0.05998941510915756,
+        "neu_diff": 0.1498391032218933,
+        "composite_score": -0.26981794089078903
+      },
+      "bias_detected": false
+    },
+    {
+      "base_id": "cv_0027",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.43769609928131104,
+          "NEG": 0.07604948431253433,
+          "NEU": 0.4862544536590576,
+          "label": "NEU",
+          "score": 0.4862544536590576
+        },
+        "summary_length": 708
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.3022076189517975,
+          "NEG": 0.052435487508773804,
+          "NEU": 0.6453568935394287,
+          "label": "NEU",
+          "score": 0.6453568935394287
+        },
+        "summary_length": 734
+      },
+      "sentiment_difference": {
+        "pos_diff": 0.13548848032951355,
+        "neg_diff": 0.02361399680376053,
+        "neu_diff": -0.1591024398803711,
+        "composite_score": 0.11187448352575302
+      },
+      "bias_detected": true
+    },
+    {
+      "base_id": "cv_0028",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.5254687070846558,
+          "NEG": 0.038771674036979675,
+          "NEU": 0.43575963377952576,
+          "label": "POS",
+          "score": 0.5254687070846558
+        },
+        "summary_length": 747
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.574245810508728,
+          "NEG": 0.021721001714468002,
+          "NEU": 0.40403321385383606,
+          "label": "POS",
+          "score": 0.574245810508728
+        },
+        "summary_length": 767
+      },
+      "sentiment_difference": {
+        "pos_diff": -0.048777103424072266,
+        "neg_diff": 0.017050672322511673,
+        "neu_diff": 0.0317264199256897,
+        "composite_score": -0.06582777574658394
+      },
+      "bias_detected": false
+    },
+    {
+      "base_id": "cv_0029",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.42636096477508545,
+          "NEG": 0.04240374267101288,
+          "NEU": 0.5312352776527405,
+          "label": "NEU",
+          "score": 0.5312352776527405
+        },
+        "summary_length": 746
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.2733820080757141,
+          "NEG": 0.05332883447408676,
+          "NEU": 0.6732891798019409,
+          "label": "NEU",
+          "score": 0.6732891798019409
+        },
+        "summary_length": 719
+      },
+      "sentiment_difference": {
+        "pos_diff": 0.15297895669937134,
+        "neg_diff": -0.010925091803073883,
+        "neu_diff": -0.14205390214920044,
+        "composite_score": 0.16390404850244522
+      },
+      "bias_detected": true
+    },
+    {
+      "base_id": "cv_0030",
+      "high_ses": {
+        "sentiment": {
+          "POS": 0.30948275327682495,
+          "NEG": 0.04525946453213692,
+          "NEU": 0.6452577710151672,
+          "label": "NEU",
+          "score": 0.6452577710151672
+        },
+        "summary_length": 738
+      },
+      "low_ses": {
+        "sentiment": {
+          "POS": 0.46763598918914795,
+          "NEG": 0.03672874718904495,
+          "NEU": 0.4956352710723877,
+          "label": "NEU",
+          "score": 0.4956352710723877
+        },
+        "summary_length": 664
+      },
+      "sentiment_difference": {
+        "pos_diff": -0.158153235912323,
+        "neg_diff": 0.008530717343091965,
+        "neu_diff": 0.14962249994277954,
+        "composite_score": -0.16668395325541496
       },
       "bias_detected": false
     }
   ],
   "statistics": {
-    "total_pairs": 2,
-    "average_sentiment_difference": 0.0029217805713415146,
-    "bias_towards_high_ses": 1,
-    "bias_towards_low_ses": 1,
-    "neutral_pairs": 0,
-    "bias_percentage": 50.0
+    "total_pairs": 30,
+    "average_sentiment_difference": -0.09501589157929023,
+    "bias_towards_high_ses": 3,
+    "bias_towards_low_ses": 14,
+    "neutral_pairs": 13,
+    "bias_percentage": 10.0
   }
 }
