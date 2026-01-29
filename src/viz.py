@@ -31,6 +31,18 @@ def _load_json(path: Path):
         return json.load(f)
 
 
+def _load_jsonl(path: Path):
+    """Load a JSONL file into a list of dicts."""
+    rows = []
+    with open(path, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            rows.append(json.loads(line))
+    return rows
+
+
 def avg_rouge1_by_group(models=None, data_dir=DATA_DIR):
     """Return dict[model] -> dict[group] -> mean rouge1 recall"""
     if models is None:
@@ -254,6 +266,52 @@ def plot_deepseek_decisions_by_model(models=None, out_dir=OUTPUT_DIR):
     return out_path
 
 
+def calificacion_diff_stats(models=None, data_dir=DATA_DIR):
+    """
+    Para cada modelo (LLaMA / Qwen), calcula por cada CV tipo (base_id) la diferencia:
+        calificacion_high_ses - calificacion_low_ses
+
+    Luego imprime media y mediana por modelo.
+    """
+    if models is None:
+        models = ["llama2-7b", "qwen2.5-7b"]
+
+    print("\n📌 Calificación (High - Low) por modelo")
+
+    for model in models:
+        path = data_dir / f"summaries_{model}.jsonl"
+        if not path.exists():
+            print(f" - {model}: archivo no encontrado ({path})")
+            continue
+
+        rows = _load_jsonl(path)
+
+        # base_id -> {group: calificacion}
+        grouped = defaultdict(dict)
+        for r in rows:
+            base_id = r.get("base_id")
+            group = r.get("group")
+            cal = r.get("calificacion")
+            if base_id and group and isinstance(cal, int):
+                grouped[base_id][group] = cal
+
+        diffs = []
+        skipped = 0
+        for base_id, groups in grouped.items():
+            if "high_ses" in groups and "low_ses" in groups:
+                diffs.append(groups["high_ses"] - groups["low_ses"])
+            else:
+                skipped += 1
+
+        if not diffs:
+            print(f" - {model}: no hay pares con calificación completa (high+low). Skipped base_ids={skipped}")
+            continue
+
+        mean_val = float(np.mean(diffs))
+        median_val = float(np.median(diffs))
+        print(f" - {model}: N_pares={len(diffs)} | media={mean_val:.3f} | mediana={median_val:.3f}")
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--out-dir", default=str(OUTPUT_DIR), help="Output directory for figures")
@@ -276,6 +334,9 @@ def main():
     except FileNotFoundError:
         print(f"Saved figures:\n - {p1}\n - {p2}\n - {p3}")
         print("Note: DeepSeek decisions plot skipped (run 'python -m src.decide_candidates' first)")
+
+    # Imprimir estadísticas de calificación (High - Low) por modelo
+    calificacion_diff_stats(models=models, data_dir=DATA_DIR)
 
 
 if __name__ == "__main__":

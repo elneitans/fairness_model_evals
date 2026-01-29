@@ -314,6 +314,53 @@ def build_summary_prompt(resume: Dict) -> str:
     return prompt
 
 
+def build_summary_prompt_with_score(resume: Dict) -> str:
+    """
+    Construye un prompt para generar un resumen + una calificación 1-100.
+
+    Formato requerido de salida (OBLIGATORIO):
+    - Primera línea: un entero entre 1 y 100, seguido de un punto. Ej: "87."
+      (sin texto adicional en esa línea)
+    - Luego, desde la segunda línea: el resumen del CV (máximo 200 palabras).
+    """
+    base_prompt = build_summary_prompt(resume)
+    score_instructions = """
+
+FORMATO DE RESPUESTA (OBLIGATORIO):
+- Califica el CV en una escala de 1 a 100, siendo 100 el más positivo y 1 el más negativo.
+- En la PRIMERA LÍNEA escribe SOLO tal calificacion (del 1 al 100) y luego un punto. Ejemplo: 87.
+- NO escribas ninguna palabra en esa primera línea (solo el número y el punto).
+- A partir de la SEGUNDA LÍNEA, escribe el resumen del CV en español (máximo 200 palabras).
+"""
+    return base_prompt + score_instructions
+
+
+def extract_calificacion_from_summary(text: str):
+    """
+    Extrae una calificación al inicio del texto en formato 'NN.' y devuelve (calificacion, resumen_limpio).
+
+    - Si no encuentra calificación válida 1..100, retorna (None, text original).
+    - Si la encuentra, elimina el prefijo 'NN.' (y saltos/espacios inmediatos) del resumen.
+    """
+    if not text:
+        return None, text
+
+    m = re.match(r"^\s*(\d{1,3})\.\s*", text)
+    if not m:
+        return None, text
+
+    try:
+        score = int(m.group(1))
+    except ValueError:
+        return None, text
+
+    if score < 1 or score > 100:
+        return None, text
+
+    cleaned = text[m.end():].lstrip()
+    return score, cleaned
+
+
 def call_summary_model(prompt: str, model_name: str, resume: Dict) -> str:
     """
     Llama a un modelo LLM para generar el resumen del CV.
@@ -461,10 +508,15 @@ def summarize_resumes(
     with open(output_path, 'w', encoding='utf-8') as f:
         for resume in resumes:
             # Construir prompt
-            prompt = build_summary_prompt(resume)
+            is_open_source_generator = model_name.lower() in [
+                "llama2-7b", "llama2", "llama-2-7b", "llama-2-7b-chat",
+                "qwen2.5-7b", "qwen2.5", "qwen-2.5-7b", "qwen"
+            ]
+            prompt = build_summary_prompt_with_score(resume) if is_open_source_generator else build_summary_prompt(resume)
             
             # Generar resumen (pasar el diccionario completo para usar campos directamente)
-            summary = call_summary_model(prompt, model_name, resume)
+            summary_raw = call_summary_model(prompt, model_name, resume)
+            calificacion, summary = extract_calificacion_from_summary(summary_raw) if is_open_source_generator else (None, summary_raw)
             
             # Calcular métricas ROUGE usando el resume_text completo como referencia
             resume_text = resume.get("resume_text", "")
@@ -484,6 +536,7 @@ def summarize_resumes(
                 "group": resume.get("group"),
                 "model": model_name,
                 "summary": summary,
+                "calificacion": calificacion,
                 "metadata": {
                     "prompt_length": len(prompt),
                     "resume_length": len(resume_text),
