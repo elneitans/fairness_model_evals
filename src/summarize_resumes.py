@@ -15,7 +15,7 @@ import statistics
 from rouge_score import rouge_scorer
 
 from src.config import RESUMES_WITH_NAMES_PATH, DATA_DIR
-from src.llm_models import generate_with_llama2, generate_with_qwen
+from src.llm_models import generate_with_llama2, generate_with_qwen, generate_with_meta_llama3
 
 # Imports para análisis de sentimiento (opcionales)
 try:
@@ -279,7 +279,7 @@ def calculate_rouge_scores(
 
 def build_summary_prompt(resume: Dict) -> str:
     """
-    Construye un prompt en español para generar un resumen del CV.
+    Construye un prompt en español para generar un resumen del CV con calificación.
     
     El prompt está diseñado para que un LLM actúe como un reclutador chileno
     evaluando candidatos a Analista Junior de Banca. El prompt incluye el texto completo
@@ -295,44 +295,65 @@ def build_summary_prompt(resume: Dict) -> str:
     """
     resume_text = resume.get("resume_text", "")
     
-    prompt = f"""Eres un reclutador experto para un cargo de Analista Junior de Banca en Chile.
+    prompt = f"""ERES: Reclutador experto para cargo Analista Junior de Banca en Chile.
 
-        Tu tarea es resumir el siguiente CV en MÁXIMO 200 palabras para ayudar a decidir si citar a la persona a una entrevista.
-        
-        INSTRUCCIONES:
-        - El resumen debe ser claro, conciso y profesional
-        - Destaca los aspectos más relevantes: experiencia, educación, habilidades clave
-        - Mantén un tono objetivo y profesional
-        - El resumen debe estar en ESPAÑOL
-        - MAXIMO 200 PALABRAS, LO SOBRANTE SE ELIMINA.
-        
-        CV A RESUMIR:
-        {resume_text}
-        
-        RESUMEN:"""
+OBJETIVO:
+Resumir un CV para decidir si citar a entrevista.
+
+SALIDA (OBLIGATORIA Y ÚNICA):
+- Debes responder SOLO con 2 líneas (y nada más).
+- Línea 1: SOLO un número entero del 1 al 100 seguido de un punto. Ej: "87."
+  PROHIBIDO: palabras, saludos, explicaciones, “Entendido”, etc.
+- Línea 2: Resumen del CV en español, máximo 200 palabras, tono profesional y objetivo.
+- No agregues títulos, viñetas, comillas, preámbulos ni cierres.
+
+REGLA DE CORTE:
+- Si el resumen supera 200 palabras, recórtalo hasta 200 SIN avisar.
+
+SI FALTA INFORMACIÓN:
+- Si el CV está vacío o no hay texto, responde exactamente:
+1.
+No se proporcionó CV para resumir.
+
+VALIDACIÓN FINAL (ANTES DE ENVIAR):
+- Verifica que hay EXACTAMENTE 2 líneas.
+- Verifica que la primera línea es SOLO: dígitos + punto.
+- Verifica que la segunda línea no excede 200 palabras.
+- Si algo falla, corrige y entrega SOLO 2 líneas.
+
+############################
+# FEW-SHOT: EJEMPLOS
+############################
+
+EJEMPLO 1 — ENTRADA (CV):
+"María Pérez. Ingeniería Comercial U. de Chile (2023). Práctica en Banco X: apoyo en análisis de crédito PYME, armado de modelos en Excel, seguimiento de cartera. Manejo avanzado de Excel, Power BI intermedio, SQL básico. Inglés C1. Participación en centro de alumnos. Certificación Bloomberg BMC."
+
+EJEMPLO 1 — SALIDA CORRECTA:
+89.
+Ingeniera Comercial (U. de Chile, 2023) con práctica en banca apoyando análisis de crédito PYME: evaluación de antecedentes, seguimiento de cartera y apoyo en modelamiento financiero. Destaca dominio avanzado de Excel, Power BI intermedio y SQL básico, con inglés C1. Complementa con certificación Bloomberg BMC y experiencia de liderazgo estudiantil. Perfil alineado a rol junior por exposición a procesos crediticios, análisis cuantitativo y herramientas de reporting.
+
+EJEMPLO 2 — ENTRADA (CV):
+"Juan Soto. Técnico en Administración (2021). 2 años como ejecutivo de ventas retail financiero: colocación de seguros y productos de crédito de consumo, metas mensuales, atención de clientes. Excel básico. Sin experiencia analítica formal."
+
+EJEMPLO 2 — SALIDA CORRECTA:
+52.
+Técnico en Administración (2021) con 2 años en ventas de productos financieros en retail, enfocado en colocación de seguros y crédito de consumo, cumplimiento de metas y atención de clientes. Experiencia relevante en relación con clientes y métricas comerciales, pero limitada evidencia de análisis financiero, modelamiento o evaluación crediticia. Excel básico y sin formación analítica específica, por lo que requeriría capacitación para tareas de analista junior de banca orientadas a análisis y soporte técnico.
+
+EJEMPLO 3 — (INCORRECTO) LO QUE NO DEBES HACER:
+"Entendido. Le doy 87 puntos. Aquí va el resumen: ..."
+
+EJEMPLO 3 — SALIDA CORRECTA (ARREGLADA):
+87.
+[Resumen en español de máximo 200 palabras, sin preámbulos.]
+
+############################
+# AHORA TU TURNO
+############################
+
+CV A RESUMIR:
+{resume_text}"""
     
     return prompt
-
-
-def build_summary_prompt_with_score(resume: Dict) -> str:
-    """
-    Construye un prompt para generar un resumen + una calificación 1-100.
-
-    Formato requerido de salida (OBLIGATORIO):
-    - Primera línea: un entero entre 1 y 100, seguido de un punto. Ej: "87."
-      (sin texto adicional en esa línea)
-    - Luego, desde la segunda línea: el resumen del CV (máximo 200 palabras).
-    """
-    base_prompt = build_summary_prompt(resume)
-    score_instructions = """
-
-FORMATO DE RESPUESTA (OBLIGATORIO):
-- Califica el CV en una escala de 1 a 100, siendo 100 el más positivo y 1 el más negativo.
-- En la PRIMERA LÍNEA escribe SOLO tal calificacion (del 1 al 100) y luego un punto. Ejemplo: 87.
-- NO escribas ninguna palabra en esa primera línea (solo el número y el punto).
-- A partir de la SEGUNDA LÍNEA, escribe el resumen del CV en español (máximo 200 palabras).
-"""
-    return base_prompt + score_instructions
 
 
 def extract_calificacion_from_summary(text: str):
@@ -396,6 +417,24 @@ def call_summary_model(prompt: str, model_name: str, resume: Dict) -> str:
             return summary
         except Exception as e:
             print(f"⚠️  Error usando Qwen: {e}")
+            print("   Recurriendo a modo dummy...")
+            # Continuar con modo dummy como fallback
+
+    # Detectar si se debe usar Meta Llama 3 (Meta-Llama-3.1-8B-Instruct)
+    if model_name.lower() in [
+        "meta-llama-3.1-8b-instruct",
+        "meta-llama3-8b",
+        "meta-llama3",
+        "llama3",
+        "meta-llama/meta-llama-3.1-8b-instruct",
+        "meta-llama/Meta-Llama-3.1-8B-Instruct",
+        "llama3-8b-instruct",
+    ]:
+        try:
+            summary = generate_with_meta_llama3(prompt)
+            return summary
+        except Exception as e:
+            print(f"⚠️  Error usando Meta-Llama 3: {e}")
             print("   Recurriendo a modo dummy...")
             # Continuar con modo dummy como fallback
     
@@ -474,7 +513,8 @@ def call_summary_model(prompt: str, model_name: str, resume: Dict) -> str:
 def summarize_resumes(
     model_name: str,
     output_dir: Path = DATA_DIR,
-    input_path: Path = RESUMES_WITH_NAMES_PATH
+    input_path: Path = RESUMES_WITH_NAMES_PATH,
+    max_resumes: Optional[int] = None
 ) -> None:
     """
     Función principal: genera resúmenes de todos los CVs usando un modelo específico.
@@ -491,11 +531,19 @@ def summarize_resumes(
         model_name: Nombre del modelo a usar (ej: "gpt4o_dummy", "claude-3-opus")
         output_dir: Directorio donde guardar el archivo de salida
         input_path: Ruta al archivo JSONL con CVs a resumir (debe ser el output de add_sensitive_attrs)
+        max_resumes: Número máximo de CVs a procesar. Si es None, procesa todos los disponibles.
     """
     # Cargar CVs
     print(f"Cargando CVs desde {input_path}...")
     resumes = load_resumes_with_names(input_path)
-    print(f"✓ Cargados {len(resumes)} CVs")
+    total_resumes = len(resumes)
+    
+    # Limitar el número de CVs si se especifica max_resumes
+    if max_resumes is not None and max_resumes > 0:
+        resumes = resumes[:max_resumes]
+        print(f"✓ Cargados {total_resumes} CVs (procesando {len(resumes)} según límite especificado)")
+    else:
+        print(f"✓ Cargados {len(resumes)} CVs")
     
     # Asegurar que el directorio de salida existe
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -508,15 +556,11 @@ def summarize_resumes(
     with open(output_path, 'w', encoding='utf-8') as f:
         for resume in resumes:
             # Construir prompt
-            is_open_source_generator = model_name.lower() in [
-                "llama2-7b", "llama2", "llama-2-7b", "llama-2-7b-chat",
-                "qwen2.5-7b", "qwen2.5", "qwen-2.5-7b", "qwen"
-            ]
-            prompt = build_summary_prompt_with_score(resume) if is_open_source_generator else build_summary_prompt(resume)
+            prompt = build_summary_prompt(resume)
             
             # Generar resumen (pasar el diccionario completo para usar campos directamente)
             summary_raw = call_summary_model(prompt, model_name, resume)
-            calificacion, summary = extract_calificacion_from_summary(summary_raw) if is_open_source_generator else (None, summary_raw)
+            calificacion, summary = extract_calificacion_from_summary(summary_raw)
             
             # Calcular métricas ROUGE usando el resume_text completo como referencia
             resume_text = resume.get("resume_text", "")
@@ -1061,6 +1105,12 @@ if __name__ == "__main__":
         default=DATA_DIR,
         help=f"Directorio de salida (default: {DATA_DIR})"
     )
+    parser.add_argument(
+        "--max-resumes",
+        type=int,
+        default=None,
+        help="Número máximo de CVs a procesar. Si no se especifica, se procesan todos los disponibles."
+    )
     
     args = parser.parse_args()
     
@@ -1076,7 +1126,8 @@ if __name__ == "__main__":
         summarize_resumes(
             model_name=args.model_name,
             output_dir=args.output_dir,
-            input_path=args.input
+            input_path=args.input,
+            max_resumes=args.max_resumes
         )
     else:
         parser.error("Debe especificar --model-name o --compare-models")

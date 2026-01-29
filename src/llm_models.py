@@ -19,6 +19,8 @@ _llama_model = None
 _llama_tokenizer = None
 _qwen_model = None
 _qwen_tokenizer = None
+_llama3_model = None
+_llama3_tokenizer = None
 
 
 def load_llama2_model(model_name: str = "meta-llama/Llama-2-7b-chat-hf"):
@@ -156,6 +158,109 @@ def generate_with_llama2(prompt: str, max_new_tokens: int = 350) -> str:
     if torch.cuda.is_available():
         torch.cuda.empty_cache()
     
+    return generated_text
+
+
+def load_meta_llama3_model(model_name: str = "meta-llama/Meta-Llama-3.1-8B-Instruct"):
+    """
+    Carga el modelo Meta Llama 3.1 8B (Instruct) y su tokenizer.
+
+    Se comporta similar a `load_llama2_model`: carga una sola vez y reutiliza.
+    """
+    global _llama3_model, _llama3_tokenizer
+
+    if not TRANSFORMERS_AVAILABLE:
+        raise ImportError(
+            "transformers y torch no están instalados. "
+            "Instala con: pip install transformers torch accelerate"
+        )
+
+    if _llama3_model is not None and _llama3_tokenizer is not None:
+        return _llama3_tokenizer, _llama3_model
+
+    print(f"Cargando modelo {model_name}...")
+    print("⚠️  Nota: Requiere token de Hugging Face. Configura con: huggingface-cli login")
+
+    try:
+        _llama3_tokenizer = AutoTokenizer.from_pretrained(
+            model_name,
+            trust_remote_code=True
+        )
+
+        _llama3_model = AutoModelForCausalLM.from_pretrained(
+            model_name,
+            torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
+            device_map="auto" if torch.cuda.is_available() else None,
+            trust_remote_code=True
+        )
+
+        if not torch.cuda.is_available():
+            _llama3_model = _llama3_model.to("cpu")
+
+        print(f"✓ Modelo {model_name} cargado correctamente")
+        if torch.cuda.is_available():
+            print(f"  Usando GPU: {torch.cuda.get_device_name(0)}")
+        else:
+            print(f"  Usando CPU (puede ser lento)")
+
+        return _llama3_tokenizer, _llama3_model
+
+    except Exception as e:
+        raise RuntimeError(
+            f"Error cargando modelo {model_name}: {str(e)}\n"
+            f"Asegúrate de tener un token de Hugging Face configurado."
+        ) from e
+
+
+def generate_with_meta_llama3(prompt: str, max_new_tokens: int = 350) -> str:
+    """
+    Genera texto usando Meta-Llama-3.1-8B-Instruct.
+    """
+    tokenizer, model = load_meta_llama3_model()
+
+    system_message = "Eres un asistente experto en resumir CVs para reclutadores chilenos en español."
+    messages = [
+        {"role": "system", "content": system_message},
+        {"role": "user", "content": prompt},
+    ]
+
+    # ✅ Llama 3 Instruct: usar chat template nativo, NO [INST]/<<SYS>>
+    formatted_prompt = tokenizer.apply_chat_template(
+        messages,
+        tokenize=False,
+        add_generation_prompt=True
+    )
+
+    max_input_length = 8192
+    inputs = tokenizer(
+        formatted_prompt,
+        return_tensors="pt",
+        truncation=True,
+        max_length=max_input_length
+    )
+
+    device = next(model.parameters()).device
+    inputs = {k: v.to(device) for k, v in inputs.items()}
+
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+
+    with torch.no_grad():
+        outputs = model.generate(
+            **inputs,
+            max_new_tokens=max_new_tokens,
+            do_sample=True,
+            temperature=0.7,
+            top_p=0.9,
+            pad_token_id=tokenizer.pad_token_id,
+            eos_token_id=tokenizer.eos_token_id,
+            repetition_penalty=1.1
+        )
+
+    input_length = inputs["input_ids"].shape[1]
+    generated_tokens = outputs[0][input_length:]
+    generated_text = tokenizer.decode(generated_tokens, skip_special_tokens=True).strip()
+
     return generated_text
 
 
