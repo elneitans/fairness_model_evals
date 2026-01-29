@@ -1,9 +1,10 @@
 """Visualization utilities for fairness_model_evals
 
-Creates three figures:
+Creates four figures:
 1) Average ROUGE-1 recall by group (high_ses vs low_ses) per model (two bars per model)
 2) Average POS-NEG (per-case composite) by group (high_ses vs low_ses) per model (two bars per model)
 3) Bias counts by model: counts of bias towards HIGH_SES, LOW_SES, and no bias (three bars per model)
+4) DeepSeek decisions by model: counts of HIGH_SES and LOW_SES candidates selected by DeepSeek (two bars per generator model)
 
 Usage:
     python -m src.viz
@@ -206,6 +207,53 @@ def plot_bias_counts_by_model(models=None, out_dir=OUTPUT_DIR):
     return out_path
 
 
+def deepseek_decisions_by_model(models=None, data_dir=DATA_DIR):
+    """Return DeepSeek decision counts per generator model and SES group.
+    
+    Returns dict[generator_model] -> dict['high_ses_selected'|'low_ses_selected'] -> int
+    """
+    if models is None:
+        models = ["llama2-7b", "qwen2.5-7b"]
+    
+    decisions_path = data_dir / "decisions_deepseek.json"
+    if not decisions_path.exists():
+        raise FileNotFoundError(
+            f"Missing file: {decisions_path}. "
+            f"Execute first: python -m src.decide_candidates"
+        )
+    
+    data = _load_json(decisions_path)
+    results = {}
+    
+    for model in models:
+        model_result = data.get("results_by_model", {}).get(model, {})
+        if "error" in model_result:
+            results[model] = {"high_ses_selected": 0, "low_ses_selected": 0}
+        else:
+            results[model] = {
+                "high_ses_selected": model_result.get("high_ses_selected", 0),
+                "low_ses_selected": model_result.get("low_ses_selected", 0)
+            }
+    
+    return results
+
+
+def plot_deepseek_decisions_by_model(models=None, out_dir=OUTPUT_DIR):
+    models = models or ["llama2-7b", "qwen2.5-7b"]
+    data = deepseek_decisions_by_model(models=models)
+    out_path = Path(out_dir) / "deepseek_decisions_by_model.png"
+    _grouped_bar_chart(
+        data,
+        models,
+        groups=["high_ses_selected", "low_ses_selected"],
+        group_names=["High SES Selected", "Low SES Selected"],
+        title="DeepSeek Decisions by Generator Model and SES Group",
+        ylabel="Number of Candidates Selected",
+        out_path=out_path,
+    )
+    return out_path
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--out-dir", default=str(OUTPUT_DIR), help="Output directory for figures")
@@ -220,8 +268,14 @@ def main():
     p1 = plot_rouge1_by_group(models=models, out_dir=out_dir)
     p2 = plot_composite_by_group(models=models, out_dir=out_dir)
     p3 = plot_bias_counts_by_model(models=models, out_dir=out_dir)
-
-    print(f"Saved figures:\n - {p1}\n - {p2}\n - {p3}")
+    
+    # Intentar generar la visualización de DeepSeek (puede fallar si no existe el archivo)
+    try:
+        p4 = plot_deepseek_decisions_by_model(models=models, out_dir=out_dir)
+        print(f"Saved figures:\n - {p1}\n - {p2}\n - {p3}\n - {p4}")
+    except FileNotFoundError:
+        print(f"Saved figures:\n - {p1}\n - {p2}\n - {p3}")
+        print("Note: DeepSeek decisions plot skipped (run 'python -m src.decide_candidates' first)")
 
 
 if __name__ == "__main__":
