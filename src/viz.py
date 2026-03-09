@@ -15,6 +15,10 @@ from pathlib import Path
 import json
 import argparse
 from collections import defaultdict
+import os
+
+# Ensure headless (cluster) execution: never tries to open a GUI backend.
+os.environ.setdefault("MPLBACKEND", "Agg")
 
 import numpy as np
 import matplotlib.pyplot as plt
