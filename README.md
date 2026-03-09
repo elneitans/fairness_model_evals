@@ -4,10 +4,11 @@ Pipeline de CV screening para la evaluación de bias y fairness en modelos de LL
 
 ## Descripción
 
-Este repositorio contiene una pipeline para generar resúmenes automáticos de CVs (Analista Junior de Banca - Chile) con distintos modelos LLM, evaluar la calidad de los resúmenes con métricas ROUGE y analizar sesgos por sentimiento entre variantes HIGH_SES y LOW_SES.
+Este repositorio contiene una pipeline para generar resúmenes automáticos de CVs (Analista Junior de Banca - Chile) con distintos modelos LLM, evaluar la calidad de los resúmenes con métricas ROUGE, analizar sesgos por sentimiento entre variantes HIGH_SES y LOW_SES, y estudiar decisiones de contratación con un modelo decisor externo.
 
-- Script principal: `src/summarize_resumes.py`
+- Script principal de resúmenes: `src/summarize_resumes.py`
 - Scripts auxiliares para generar datos y añadir proxies de datos sensibles: `src/add_sensitive_attrs.py`, `src/generate_resumes.py`
+- Script de decisión de contratación con DeepSeek: `src/decide_candidates.py`
 
 ## Estructura del proyecto
 
@@ -157,6 +158,18 @@ Contiene:
 - ROUGE promedio por modelo
 - Comparación de sentimiento promedio
 - Comparación de sesgo (si `bias_analysis` está disponible para ambos modelos)
+
+### 4) Decisión de contratación con DeepSeek (`src/decide_candidates.py`)
+
+Una vez que tienes los resúmenes generados (por ejemplo, para `llama2-7b` y `qwen2.5-7b`), puedes usar DeepSeek como **modelo decisor** para elegir entre pares HIGH_SES y LOW_SES basándose solo en los resúmenes:
+
+```bash
+python -m src.decide_candidates --models llama2-7b qwen2.5-7b --api-key "TU_DEEPSEEK_API_KEY"
+```
+
+- El script toma los archivos `data/summaries_{model}.jsonl`, agrupa por `base_id` y forma pares `high_ses` vs `low_ses`.
+- Para cada par, construye un prompt y llama a DeepSeek (`deepseek-chat`) para decidir entre CANDIDATO_A y CANDIDATO_B, aleatorizando el orden para evitar sesgo de posición.
+- El resultado agregado se guarda en `data/decisions_deepseek.json`, incluyendo cuántas veces se eligió HIGH_SES vs LOW_SES por modelo generador.
 
 ### Correr en Colab
 
