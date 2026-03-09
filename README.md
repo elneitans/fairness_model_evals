@@ -4,7 +4,7 @@ Pipeline de CV screening para la evaluación de bias y fairness en modelos de LL
 
 ## Descripción
 
-Este repositorio contiene una pipeline para generar resúmenes automáticos de CVs (Trabajador/a Social - Chile) con distintos modelos LLM, evaluar la calidad de los resúmenes con métricas ROUGE y analizar sesgos por sentimiento entre variantes HIGH_SES y LOW_SES.
+Este repositorio contiene una pipeline para generar resúmenes automáticos de CVs (Analista Junior de Banca - Chile) con distintos modelos LLM, evaluar la calidad de los resúmenes con métricas ROUGE y analizar sesgos por sentimiento entre variantes HIGH_SES y LOW_SES.
 
 - Script principal: `src/summarize_resumes.py`
 - Scripts auxiliares para generar datos y añadir proxies de datos sensibles: `src/add_sensitive_attrs.py`, `src/generate_resumes.py`
@@ -18,8 +18,9 @@ requirements.txt
 data/
   raw_resumes.jsonl
   resumes_with_names.jsonl
-  summaries_gpt4o_dummy.jsonl
   summaries_llama2-7b.jsonl
+  summaries_qwen2.5-7b.jsonl
+  summaries_llama3-8b-instruct.jsonl
 notebooks/
   run_colab.ipynb
 src/
@@ -53,11 +54,24 @@ Donde proxy1 puede ser igual a "name", y proxy2 igual a "comuna"
 
 ### 2) Generar resúmenes para un modelo
 
-Genera resúmenes con un modelo (modo real si está configurado, o **dummy** como fallback). Por ahora solo compatible con Llama 2 7b, y Qwen 2.5 7b:
+Genera resúmenes con un modelo (modo real si está configurado, o **dummy** como fallback). Actualmente compatible con:
+- **Llama 2 7B** (chat, local vía Hugging Face)
+- **Qwen 2.5 7B Instruct** (local vía Hugging Face)
+- **Meta-Llama-3.1-8B-Instruct** (local vía Hugging Face)
 
+Ejemplos de uso:
 
+```bash
 python -m src.summarize_resumes --model-name llama2-7b
 python -m src.summarize_resumes --model-name qwen2.5-7b
+python -m src.summarize_resumes --model-name llama3-8b-instruct
+```
+
+También puedes usar directamente el identificador de Hugging Face para Meta Llama 3.1:
+
+```bash
+python -m src.summarize_resumes --model-name "meta-llama/Meta-Llama-3.1-8B-Instruct"
+```
 
 
 Salida esperada:
